@@ -1,0 +1,51 @@
+package com.ssu.umc9th2.domain.user.entity;
+
+import com.ssu.umc9th2.common.base.BaseEntity;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.*;
+
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+public class User extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private String profileLink;
+
+    @Column(nullable = false)
+    private String gender;
+
+    private LocalDate birth;
+
+    private String address;
+
+    private Long point;
+
+    private String phone;
+
+    private String nickname;
+
+    private String kakaoId;
+
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
+    @Column(nullable = false)
+    private Boolean isReceiveEvent;
+
+    @Column(nullable = false)
+    private Boolean isReceiveReviewReply;
+
+    @Column(nullable = false)
+    private Boolean isReceiveInquiryReply;
+
+}
+
