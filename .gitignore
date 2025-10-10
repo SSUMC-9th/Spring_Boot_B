@@ -17,3 +17,7 @@ out/
 !gradle/wrapper/
 !gradlew
 !gradlew.bat
+
+# Build outputs
+build/
+*.jar
