@@ -20,8 +20,9 @@ public class MemberMission extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MemberMissionStatus memberMissionStatus;
+    private MemberMissionStatus memberMissionStatus =  MemberMissionStatus.READY;
 
     @Column(nullable = false)
     private LocalDate dueDate;
