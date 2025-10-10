@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+
+# Gradle local cache & build outputs
+.gradle/
+build/
+out/
+
+# Logs
+*.log
+
+# (유지해야 하는 Gradle wrapper 파일은 제외)
+!gradle/wrapper/
+!gradlew
+!gradlew.bat
