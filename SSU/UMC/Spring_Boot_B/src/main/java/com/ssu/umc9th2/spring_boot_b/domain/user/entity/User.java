@@ -36,15 +36,10 @@ public class User extends BaseEntity {
     private String kakaoId;
 
     @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private Boolean isDeleted;
 
-    @Column(nullable = false)
-    private Boolean isReceiveEvent;
-
-    @Column(nullable = false)
-    private Boolean isReceiveReviewReply;
-
-    @Column(nullable = false)
-    private Boolean isReceiveInquiryReply;
 }
 

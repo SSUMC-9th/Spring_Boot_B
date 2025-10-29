@@ -5,7 +5,6 @@ import com.ssu.umc9th2.spring_boot_b.domain.restaurant.entity.Restaurant;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -26,7 +25,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    private BigDecimal rating;
+    private Double rating;
 
     private String content;
 }
