@@ -1,6 +1,6 @@
 package com.ssu.umc9th2.spring_boot_b.domain.mission.entity;
 
-import com.ssu.umc9th2.common.base.BaseEntity;
+import com.ssu.umc9th2.spring_boot_b.common.base.BaseEntity;
 import com.ssu.umc9th2.spring_boot_b.domain.restaurant.entity.Restaurant;
 import jakarta.persistence.*;
 import lombok.*;
