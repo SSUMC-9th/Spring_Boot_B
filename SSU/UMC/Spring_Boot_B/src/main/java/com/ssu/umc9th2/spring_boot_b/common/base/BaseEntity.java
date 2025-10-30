@@ -1,4 +1,4 @@
-package com.ssu.umc9th2.common.base;
+package com.ssu.umc9th2.spring_boot_b.common.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
