@@ -2,6 +2,7 @@ package com.ssu.umc9th2.spring_boot_b.domain.user.controller;
 
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserMissionStatusResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserPageResponse;
+import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserReviewListResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,15 @@ public class UserController {
             @RequestParam(defaultValue = "10") int size
     ){
         return userService.getUserMissionStatus(userId,page,size).getContent();
+    }
+
+    @GetMapping("/review/list/{userId}")
+    public GetUserReviewListResponse getUserReviewList(
+            @PathVariable Long userId,
+            @RequestParam(required = false) String restaurantName,
+            @RequestParam(required = false) Double rating
+    ) {
+        return userService.getUserReviewList(userId, restaurantName, rating);
     }
 
 }
