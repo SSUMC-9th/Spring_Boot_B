@@ -31,6 +31,9 @@ public class Alarm extends BaseTimeEntity {
     @Column(name = "read_at")
     private LocalDateTime readAt;
 
+    @Column(name = "alarm_count")
+    private Long alarmCount;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;

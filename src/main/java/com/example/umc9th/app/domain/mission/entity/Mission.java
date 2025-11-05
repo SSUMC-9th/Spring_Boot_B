@@ -1,6 +1,7 @@
 package com.example.umc9th.app.domain.mission.entity;
 
-import com.example.umc9th.app.domain.member.entity.Member;
+import com.example.umc9th.app.domain.member.entity.MemberMission;
+import com.example.umc9th.app.domain.store.entity.Store;
 import com.example.umc9th.infra.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,6 +29,10 @@ public class Mission extends BaseTimeEntity {
 
     @Column(nullable = false)
     private Long reward;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     @OneToMany(mappedBy = "mission", orphanRemoval = true)
     @Builder.Default

@@ -1,6 +1,5 @@
 package com.example.umc9th.app.domain.review.entity;
 
-import com.example.umc9th.app.domain.member.entity.Alarm;
 import com.example.umc9th.app.domain.member.entity.Member;
 import com.example.umc9th.app.domain.store.entity.Store;
 import com.example.umc9th.infra.entity.BaseTimeEntity;
@@ -25,7 +24,7 @@ public class Review extends BaseTimeEntity {
     private String content;
 
     @Column(nullable = false)
-    private float rating;
+    private Double rating;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_id")

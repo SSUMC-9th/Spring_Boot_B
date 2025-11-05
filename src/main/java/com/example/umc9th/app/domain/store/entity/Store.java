@@ -4,6 +4,7 @@ package com.example.umc9th.app.domain.store.entity;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.infra.entity.Address;
 import com.example.umc9th.infra.entity.BaseTimeEntity;
+import com.example.umc9th.infra.entity.FoodCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,14 +29,18 @@ public class Store extends BaseTimeEntity {
     @Column(length = 50)
     private String backgroundImg;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "food_category_id", nullable = false)
+    private FoodCategory foodCategory;
+
+
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<StoreHours> storeHoursList = new ArrayList<>();
-
-
 
     @Embedded
     private Address address;
