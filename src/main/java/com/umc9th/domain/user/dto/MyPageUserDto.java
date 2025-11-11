@@ -8,7 +8,7 @@ public class MyPageUserDto {
     private String username;
 
     // User.addres
-    private String address;
+    private Address address;
 
     // User.userPoint
     private Long userPoint;
