@@ -1,11 +1,10 @@
 package com.example.umc9th.app.domain.review.service;
 
 import com.example.umc9th.app.domain.review.dto.GetMyReviewResponse;
-import com.example.umc9th.app.domain.review.entity.QReview;
+import static com.example.umc9th.app.domain.review.entity.QReview.review;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.app.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +18,6 @@ import java.util.List;
 public class ReviewQueryService {
     private final ReviewRepository reviewRepository;
     public List<Review> searchReview(String type, String query) {
-        QReview review = QReview.review;
         BooleanBuilder builder = new BooleanBuilder();
 
         if (type.equals("address")) {
@@ -35,8 +33,8 @@ public class ReviewQueryService {
             builder.and(review.store.address.city.contains(firstQuery));
             builder.and(review.rating.goe(Float.parseFloat(secondQuery)));
         }
-        List<Review> reviewList = reviewRepository.searchReview(builder);
-        return reviewList;
+       return reviewRepository.searchReview(builder);
+
     }
 
     @Transactional(readOnly = true)
@@ -46,7 +44,6 @@ public class ReviewQueryService {
             Float rating,
             Pageable pageable
     ) {
-        QReview review = QReview.review;
         BooleanBuilder builder = new BooleanBuilder();
 
         // 본인 리뷰만
@@ -62,8 +59,8 @@ public class ReviewQueryService {
             builder.and(review.rating.goe(rating));
         }
 
-        Predicate predicate = builder;
-        Page<Review> page = reviewRepository.searchReview(predicate, pageable);
+
+        Page<Review> page = reviewRepository.searchReview(builder, pageable);
 
         return page.map(r -> new GetMyReviewResponse(
                 r.getId(),
