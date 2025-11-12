@@ -3,7 +3,6 @@ package com.example.umc9th.app.domain.member.entity;
 
 import com.example.umc9th.app.domain.member.enums.AuthProvider;
 import com.example.umc9th.app.domain.member.enums.Gender;
-import com.example.umc9th.app.domain.mission.entity.MemberMission;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.infra.entity.Address;
 import com.example.umc9th.infra.entity.BaseTimeEntity;
@@ -41,6 +40,9 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private LocalDate birth;
 
+    @Column(length = 30, nullable = false)
+    private String email;
+
     @Column(name = "phone_num", length = 20, unique = true)
     private String phoneNum;
 
@@ -50,7 +52,7 @@ public class Member extends BaseTimeEntity {
 
     @Builder.Default
     @Column(name = "verified", nullable = false)
-    private boolean isVerified = false;
+    private boolean isPhoneNumVerified = false;
 
     @Builder.Default
     @Column(name = "active", nullable = false)
@@ -62,18 +64,15 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member")
     private List<MemberFoodCategory> memberFoodCategories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberFoodCategory> memberFoodCategoryList = new ArrayList<>();
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Alarm> alarms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", orphanRemoval = true)
-    @Builder.Default
-    private List<MemberMission> memberMissions = new ArrayList<>();
+//    @OneToMany(mappedBy = "member", orphanRemoval = true)
+//    @Builder.Default
+//    private List<MemberMission> memberMissions = new ArrayList<>();
 
     @Column(name = "event_enabled")
     private boolean eventEnabled;
@@ -83,7 +82,4 @@ public class Member extends BaseTimeEntity {
 
     @Column(name = "qna_enabled")
     private boolean qnaEnabled;
-
-
-
 }
