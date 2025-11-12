@@ -2,6 +2,8 @@ package com.plane.umc9th.domain.review.controller;
 
 import com.plane.umc9th.domain.review.entity.Review;
 import com.plane.umc9th.domain.review.service.ReviewService;
+import com.plane.umc9th.global.apiPayload.ApiResponse;
+import com.plane.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +20,14 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/my")
-    public List<Review> getMyReviews(
+    public ApiResponse<List<Review>> getMyReviews(
             @RequestParam Long memberId,
             @RequestParam(required = false) String restaurantName,
             @RequestParam(required = false) Integer ratingGroup
     ) {
-        return reviewService.getMyReviews(memberId, restaurantName, ratingGroup);
+        GeneralSuccessCode code = GeneralSuccessCode.REVIEW_OK;
+        return ApiResponse.onSuccess(
+                code,
+                reviewService.getMyReviews(memberId, restaurantName, ratingGroup));
     }
 }

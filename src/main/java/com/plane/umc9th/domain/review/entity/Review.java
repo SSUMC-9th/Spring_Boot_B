@@ -1,5 +1,6 @@
 package com.plane.umc9th.domain.review.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plane.umc9th.domain.inquiry.enums.InquiryType;
 import com.plane.umc9th.domain.member.entity.Member;
 import com.plane.umc9th.domain.restaurant.entity.Restaurant;
@@ -24,6 +25,7 @@ public class Review extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore // 반복 방지
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
