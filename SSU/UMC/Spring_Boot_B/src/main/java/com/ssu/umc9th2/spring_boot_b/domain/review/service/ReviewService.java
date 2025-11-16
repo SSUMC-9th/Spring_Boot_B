@@ -5,7 +5,6 @@ import com.ssu.umc9th2.spring_boot_b.domain.restaurant.service.RestaurantService
 import com.ssu.umc9th2.spring_boot_b.domain.review.dto.request.CreateReviewRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.review.entity.Review;
 import com.ssu.umc9th2.spring_boot_b.domain.review.entity.ReviewImage;
-import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewCustomRepositoryImpl;
 import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewImageRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
@@ -23,11 +22,10 @@ public class ReviewService {
     private final ReviewImageRepository reviewImageRepository;
     private final UserService userService;
     private final RestaurantService restaurantService;
-    private final ReviewCustomRepositoryImpl reviewCustomRepositoryImpl;
 
     public void createReview(CreateReviewRequest request) {
         User user = userService.getUserByUserId(request.userId());
-        Restaurant restaurant = restaurantService.getRestaurantFindByRestaurantId(request.restaurantId());
+        Restaurant restaurant = restaurantService.getRestaurantByRestaurantId(request.restaurantId());
 
         Review review = Review.builder()
                 .user(user)
