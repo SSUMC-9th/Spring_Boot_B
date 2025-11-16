@@ -6,6 +6,9 @@ spring:
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PW}
+  profiles:
+    active: local
+
 
   jpa:
     database: mysql
@@ -16,3 +19,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+
+
+logging:
+  discord:
+    web-hook-url: https://discord.com/api/webhooks/1410179787107991572/2vFFuEbOysRrHXoLEwUBOx18ODLQnJWVeTmt9Lf-Qt0pKhSGGIS1IzFN-ftgyHt7qg0i

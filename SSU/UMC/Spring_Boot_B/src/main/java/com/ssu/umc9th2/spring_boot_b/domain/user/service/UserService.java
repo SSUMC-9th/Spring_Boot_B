@@ -1,5 +1,7 @@
 package com.ssu.umc9th2.spring_boot_b.domain.user.service;
 
+import com.ssu.umc9th2.spring_boot_b.common.exception.GeneralException;
+import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
 import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewCustomRepositoryImpl;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.*;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
@@ -33,11 +35,13 @@ public class UserService {
     }
 
     public GetUserReviewListResponse getUserReviewList(Long userId,String restaurantName, Double rating) {
+        getUserByUserId(userId);
         List<GetUserReviewResponse> userReviewList = reviewCustomRepositoryImpl.findAllByUserWithFilter(userId, restaurantName, rating);
         return new GetUserReviewListResponse(userReviewList);
     }
 
     public Page<GetUserMissionStatusResponse> getUserMissionStatus(Long userId, int page, int size) {
+        getUserByUserId(userId);
         return userMissionRepository.getUserMissionStatus(userId, PageRequest.of(page, size));
     }
 
@@ -51,7 +55,7 @@ public class UserService {
     }
 
     public User getUserByUserId(Long userId) {
-        return userRepository.findById(userId).orElseThrow(null);
+        return userRepository.findById(userId).orElseThrow(()->new GeneralException(ErrorStatus.NOT_FOUND));
     }
 
 }
