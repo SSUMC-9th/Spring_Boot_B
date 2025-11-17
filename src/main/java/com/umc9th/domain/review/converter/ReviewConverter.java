@@ -1,8 +1,11 @@
-package com.umc9th.domain.review.converter;
+package com.example.umc9th.domain.review.converter;
 
-import com.umc9th.domain.review.dto.res.ReviewResDTO;
-import com.umc9th.domain.review.entity.Review;
-import com.umc9th.domain.review.entity.ReviewPhoto;
+import com.example.umc9th.domain.review.dto.req.ReviewCreateRequest;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.entity.ReviewPhoto;
+import com.example.umc9th.domain.store.entity.Store;
+import com.example.umc9th.domain.user.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,9 +26,10 @@ public class ReviewConverter {
                 .star(reviewing.getStar())
                 .content(reviewing.getContent())
                 .createdAt(reviewing.getCreatedAt())
+                // User 정보 매핑
                 .userId(reviewing.getUser().getId())
                 .userName(reviewing.getUser().getName())
-
+                // 사진 정보 매핑
                 .reviewImageUrls(imageUrls)
                 .build();
     }
@@ -34,5 +38,23 @@ public class ReviewConverter {
         return reviewList.stream()
                 .map(ReviewConverter::toReviewDTO) // toReviewDTO 메서드를 사용하여 개별 변환
                 .collect(Collectors.toList());
+    }
+
+    public static Review toReview(ReviewCreateRequest dto, Store store, User user) {
+        return Review.builder()
+                .content(dto.getContent())
+                .star(dto.getStar())
+                .store(store)
+                .user(user) // user 매핑 필요
+                .build();
+    }
+
+    public static ReviewResDTO.Created toCreatedDTO(Review review) {
+        return ReviewResDTO.Created.builder()
+                .reviewId(review.getId())
+                .content(review.getContent())
+                .star(review.getStar())
+                .createdAt(review.getCreatedAt())
+                .build();
     }
 }
