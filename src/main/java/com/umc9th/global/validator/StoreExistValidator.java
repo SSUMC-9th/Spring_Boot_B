@@ -1,7 +1,7 @@
-package com.example.umc9th.global.validator;
+package com.umc9th.global.validator;
 
-import com.example.umc9th.global.annotation.ExistStore;
-import com.example.umc9th.domain.store.repository.StoreRepository;
+import com.umc9th.global.annotation.ExistStore;
+import com.umc9th.domain.store.repository.StoreRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;

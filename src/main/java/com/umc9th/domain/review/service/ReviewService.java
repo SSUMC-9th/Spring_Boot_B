@@ -1,13 +1,13 @@
-package com.example.umc9th.domain.review.service;
+package com.umc9th.domain.review.service;
 
-import com.example.umc9th.domain.review.dto.req.ReviewCreateRequest;
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.review.exception.ReviewException;
-import com.example.umc9th.domain.review.repository.ReviewRepository;
-import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
-import com.example.umc9th.domain.review.converter.ReviewConverter;
-import com.example.umc9th.domain.store.repository.StoreRepository;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.domain.review.dto.req.ReviewCreateRequest;
+import com.umc9th.domain.review.entity.Review;
+import com.umc9th.domain.review.exception.ReviewException;
+import com.umc9th.domain.review.repository.ReviewRepository;
+import com.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.umc9th.domain.review.converter.ReviewConverter;
+import com.umc9th.domain.store.repository.StoreRepository;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

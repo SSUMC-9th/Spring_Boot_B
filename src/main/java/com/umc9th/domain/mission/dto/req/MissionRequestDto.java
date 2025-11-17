@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.mission.dto.req;
+package com.umc9th.domain.mission.dto.req;
 
 
 import lombok.Getter;

@@ -1,11 +1,11 @@
-package com.example.umc9th.domain.review.converter;
+package com.umc9th.domain.review.converter;
 
-import com.example.umc9th.domain.review.dto.req.ReviewCreateRequest;
-import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.review.entity.ReviewPhoto;
-import com.example.umc9th.domain.store.entity.Store;
-import com.example.umc9th.domain.user.entity.User;
+import com.umc9th.domain.review.dto.req.ReviewCreateRequest;
+import com.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.umc9th.domain.review.entity.Review;
+import com.umc9th.domain.review.entity.ReviewPhoto;
+import com.umc9th.domain.store.entity.Store;
+import com.umc9th.domain.user.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;

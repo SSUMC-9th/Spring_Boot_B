@@ -1,6 +1,6 @@
-package com.example.umc9th.domain.review.dto.req;
+package com.umc9th.domain.review.dto.req;
 
-import com.example.umc9th.global.annotation.ExistStore;
+import com.umc9th.global.annotation.ExistStore;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,10 +1,10 @@
-package com.example.umc9th.domain.mission.controller;
+package com.umc9th.domain.mission.controller;
 
-import com.example.umc9th.domain.mission.dto.req.MissionRequestDto;
-import com.example.umc9th.domain.mission.dto.res.MissionResponseDto;
-import com.example.umc9th.domain.mission.service.MissionCommandService;
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.umc9th.domain.mission.dto.req.MissionRequestDto;
+import com.umc9th.domain.mission.dto.res.MissionResponseDto;
+import com.umc9th.domain.mission.service.MissionCommandService;
+import com.umc9th.global.apiPayload.ApiResponse;
+import com.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
