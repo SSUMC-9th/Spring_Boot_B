@@ -16,6 +16,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+//QueryDsl의 실제 구현체
 public class ReviewQueryDslImpl implements ReviewQueryDsl {
 
     private final EntityManager em;
