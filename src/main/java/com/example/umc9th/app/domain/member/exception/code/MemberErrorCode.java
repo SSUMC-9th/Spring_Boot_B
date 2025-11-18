@@ -1,4 +1,4 @@
-package com.example.umc9th.app.domain.member.exception;
+package com.example.umc9th.app.domain.member.exception.code;
 
 
 import com.example.umc9th.infra.apiPayload.code.BaseErrorCode;
@@ -13,6 +13,9 @@ public enum MemberErrorCode implements BaseErrorCode {
 
     // For test
     MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "MEMBER400_1", "멤버 에러 발생"),
+    NOT_FOUND(HttpStatus.NOT_FOUND,
+            "MEMBER404_1",
+            "해당 사용자를 찾지 못했습니다."),
     ;
 
     private final HttpStatus status;

@@ -22,10 +22,8 @@ public class MemberMission extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private MemberMissionStatus memberMissionStatus =  MemberMissionStatus.READY;
-
-    @Column(nullable = false)
-    private LocalDate dueDate;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "member_id", nullable = false)

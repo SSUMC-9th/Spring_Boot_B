@@ -2,7 +2,9 @@ package com.example.umc9th.app.domain.member.repository;
 
 import com.example.umc9th.app.domain.member.dto.GetAvailableMemberMissionResponse;
 import com.example.umc9th.app.domain.member.dto.GetMemberMissionResponse;
+import com.example.umc9th.app.domain.member.entity.Member;
 import com.example.umc9th.app.domain.member.entity.MemberMission;
+import com.example.umc9th.app.domain.mission.entity.Mission;
 import com.example.umc9th.app.domain.mission.enums.MemberMissionStatus;
 
 import org.springframework.data.domain.Page;
@@ -48,14 +50,14 @@ select new com.example.umc9th.app.domain.member.dto.GetAvailableMemberMissionRes
     m.reward,
     m.cashRequirement,
     s.name,
-    mm.dueDate
+    m.dueDate
 )
 from MemberMission mm
 join mm.mission m
 join m.store s
 where mm.member.id = :memberId
   and mm.memberMissionStatus = com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.READY
-order by mm.dueDate asc, mm.id desc
+order by m.dueDate asc, mm.id desc
 """)
     Page<GetAvailableMemberMissionResponse> getAvailableMemberMissions(
             @Param("memberId") Long memberId,
@@ -63,4 +65,5 @@ order by mm.dueDate asc, mm.id desc
     );
 
 
+    boolean existsByMemberAndMission(Member member, Mission mission);
 }

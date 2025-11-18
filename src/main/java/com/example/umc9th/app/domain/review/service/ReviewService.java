@@ -2,7 +2,7 @@ package com.example.umc9th.app.domain.review.service;
 
 import com.example.umc9th.app.domain.member.entity.Member;
 import com.example.umc9th.app.domain.member.service.MemberService;
-import com.example.umc9th.app.domain.review.dto.CreateReviewRequest;
+import com.example.umc9th.app.domain.review.dto.PostCreateReviewRequest;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.app.domain.review.repository.ReviewRepository;
 import com.example.umc9th.app.domain.store.entity.Store;
@@ -16,7 +16,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final MemberService memberService;
     private final StoreService storeService;
-    public void createReview(CreateReviewRequest request){
+    public void createReview(PostCreateReviewRequest request){
         Member member = memberService.findMemberById(request.memberId());
         Store store = storeService.findStoreById(request.storeId());
 

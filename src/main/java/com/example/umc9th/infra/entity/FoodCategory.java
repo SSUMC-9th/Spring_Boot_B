@@ -25,9 +25,7 @@ public class FoodCategory {
     @Enumerated(EnumType.STRING)
     private FoodCategoryName name;
 
-    @OneToMany(mappedBy = "foodCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Store> stores = new ArrayList<>();
-
     @OneToMany(mappedBy = "foodCategory", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Builder.Default
     private List<MemberFoodCategory> memberFoodCategoryList = new ArrayList<>();
 }

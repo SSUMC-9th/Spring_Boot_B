@@ -23,6 +23,7 @@ public class StoreHours extends BaseTimeEntity {
     @Column(nullable = false)
     private LocalTime close;
 
+    //요일(숫자로 표시 1~7)
     @Column(nullable = false)
     private int week;
 

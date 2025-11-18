@@ -30,12 +30,13 @@ public class Member extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
+    @Builder.Default
     private Gender gender = Gender.NONE;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "auth_provider", nullable = false, length = 10)
-    private AuthProvider authProvider = AuthProvider.NONE;
+    private AuthProvider authProvider = AuthProvider.LOCAL;
 
     @Column(nullable = false)
     private LocalDate birth;
@@ -62,12 +63,15 @@ public class Member extends BaseTimeEntity {
     private Address address;
 
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<MemberFoodCategory> memberFoodCategories = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Alarm> alarms = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "member", orphanRemoval = true)
