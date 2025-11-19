@@ -1,0 +1,39 @@
+package com.plane.umc9th.domain.review.service;
+
+import com.plane.umc9th.domain.member.entity.Member;
+import com.plane.umc9th.domain.member.repository.MemberRepository;
+import com.plane.umc9th.domain.restaurant.entity.Restaurant;
+import com.plane.umc9th.domain.restaurant.repository.RestaurantRepository;
+import com.plane.umc9th.domain.review.converter.ReviewConverter;
+import com.plane.umc9th.domain.review.dto.ReviewReqDTO;
+import com.plane.umc9th.domain.review.dto.ReviewResDTO;
+import com.plane.umc9th.domain.review.entity.Review;
+import com.plane.umc9th.domain.review.repository.ReviewRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ReviewService {
+    private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
+    private final RestaurantRepository restaurantRepository;
+
+    public ReviewResDTO.CreateDTO create(ReviewReqDTO.CreateDTO dto) {
+        Member member = memberRepository.findById(dto.memberId()).orElse(null);
+        Restaurant restaurant = restaurantRepository.findById(dto.restaurantId()).orElse(null);
+
+        Review review = ReviewConverter.toReview(dto);
+        review.setMember(member);
+        review.setRestaurant(restaurant);
+        reviewRepository.save(review);
+
+        return ReviewConverter.toCreateDTO(review);
+    }
+
+    public List<Review> getMyReviews(Long memberId, String restaurantName, Integer ratingGroup) {
+        return reviewRepository.findMyReviews(memberId, restaurantName, ratingGroup);
+    }
+}
