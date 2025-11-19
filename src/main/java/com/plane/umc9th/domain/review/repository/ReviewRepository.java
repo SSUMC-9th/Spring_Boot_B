@@ -3,6 +3,8 @@ package com.plane.umc9th.domain.review.repository;
 import com.plane.umc9th.domain.review.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+import java.util.List;
+
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryForDSL {
 
 }

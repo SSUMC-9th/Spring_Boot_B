@@ -1,5 +1,6 @@
 package com.plane.umc9th.domain.mission.repository;
 
+import com.plane.umc9th.domain.member.entity.Member;
 import com.plane.umc9th.domain.mission.entity.Mission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,8 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
             "WHERE m.member.id=:memberId AND " +
             "m.isCompleted=true")
     int getCompletedCountByMemberId(@Param("memberId") Long memeberId);
+
+    int countByMemberAndIsCompleted(Member member, boolean isCompleted);
 
     @Query("SELECT count(*) FROM Mission m " +
             "WHERE m.member.id=:memberId AND " +
