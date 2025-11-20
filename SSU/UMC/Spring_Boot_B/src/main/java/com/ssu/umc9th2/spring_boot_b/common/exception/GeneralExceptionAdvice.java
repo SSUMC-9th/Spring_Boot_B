@@ -3,7 +3,6 @@ package com.ssu.umc9th2.spring_boot_b.common.exception;
 import com.ssu.umc9th2.spring_boot_b.common.base.BaseStatus;
 import com.ssu.umc9th2.spring_boot_b.common.response.ApiResponse;
 import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
-import com.ssu.umc9th2.spring_boot_b.common.status.SuccessStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;

@@ -2,9 +2,12 @@ package com.ssu.umc9th2.spring_boot_b.domain.user.service;
 
 import com.ssu.umc9th2.spring_boot_b.common.exception.GeneralException;
 import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
+import com.ssu.umc9th2.spring_boot_b.domain.mission.entity.Mission;
+import com.ssu.umc9th2.spring_boot_b.domain.mission.service.MissionService;
 import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewCustomRepositoryImpl;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.*;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
+import com.ssu.umc9th2.spring_boot_b.domain.user.entity.UserMission;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserMissionRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMissionRepository userMissionRepository;
     private final ReviewCustomRepositoryImpl reviewCustomRepositoryImpl;
+    private final MissionService missionService;
 
     public GetUserPageResponse getUserPage(Long userId) {
         User user = getUserByUserId(userId);
@@ -54,8 +58,29 @@ public class UserService {
         return new GetUserSummaryResponse(user.getNickname(), user.getEmail(), user.getPoint(),notificationCount);
     }
 
+    public void createUserMission(Long userId, Long missionId) {
+        User user = getUserByUserId(userId);
+        Mission mission = missionService.getMissionByMissionId(missionId);
+
+        if(isExistUserMission(user,mission))
+            throw new GeneralException(ErrorStatus.USER_MISSION_ALREADY_EXIST);
+
+        UserMission userMission = UserMission.builder()
+                .user(user)
+                .mission(mission)
+                .isCompleted(false)
+                .build();
+
+        userMissionRepository.save(userMission);
+
+    }
+
     public User getUserByUserId(Long userId) {
-        return userRepository.findById(userId).orElseThrow(()->new GeneralException(ErrorStatus.NOT_FOUND));
+        return userRepository.findById(userId).orElseThrow(()->new GeneralException(ErrorStatus.USER_NOT_FOUND));
+    }
+
+    public boolean isExistUserMission(User user, Mission mission) {
+        return userMissionRepository.existsByUserAndMission(user, mission);
     }
 
 }

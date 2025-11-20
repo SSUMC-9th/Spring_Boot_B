@@ -1,7 +1,9 @@
 package com.ssu.umc9th2.spring_boot_b.domain.user.repository;
 
+import com.ssu.umc9th2.spring_boot_b.domain.mission.entity.Mission;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetAvailableUserMissionResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserMissionStatusResponse;
+import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.UserMission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,5 +45,6 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
        ORDER BY um.updatedAt DESC
     """)
     Page<GetAvailableUserMissionResponse> getAvailableUserMission(@Param("userId") Long userId, Pageable pageable, @Param("now") LocalDateTime now);
+    Boolean existsByUserAndMission(User user, Mission mission);
 }
 
