@@ -16,5 +16,6 @@ public class Location extends BaseEntity {
     private Long id;
 
     private String name;
+
 }
 

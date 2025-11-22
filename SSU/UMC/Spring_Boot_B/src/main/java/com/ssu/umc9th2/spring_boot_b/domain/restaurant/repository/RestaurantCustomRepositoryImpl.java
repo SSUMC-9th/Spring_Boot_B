@@ -1,17 +1,24 @@
 package com.ssu.umc9th2.spring_boot_b.domain.restaurant.repository;
 
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ssu.umc9th2.spring_boot_b.domain.restaurant.dto.response.GetRestaurantMissionResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.restaurant.dto.response.GetRestaurantResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 import static com.querydsl.core.types.Projections.bean;
 import static com.ssu.umc9th2.spring_boot_b.domain.restaurant.entity.QRestaurant.restaurant;
 import static com.ssu.umc9th2.spring_boot_b.domain.location.entity.QLocation.location;
+import static com.ssu.umc9th2.spring_boot_b.domain.mission.entity.QMission.mission;
 
 import java.util.List;
 
@@ -41,12 +48,12 @@ public class RestaurantCustomRepositoryImpl implements RestaurantCustomRepositor
                         restaurantNameContainsWords(name)
                 )
                 .orderBy(getOrderCondition(orderCondition))
-                .offset((long)page*size)
+                .offset((long) page * size)
                 .limit(size)
                 .fetch();
     }
 
-    private BooleanExpression restaurantNameContainsWords(String keyword){
+    private BooleanExpression restaurantNameContainsWords(String keyword) {
         if (keyword == null) return null;
         String trimmed = keyword.trim();
         if (trimmed.isEmpty()) return null; // ← ★ 핵심
@@ -63,6 +70,35 @@ public class RestaurantCustomRepositoryImpl implements RestaurantCustomRepositor
         return condition;
     }
 
+    @Override
+    public Page<GetRestaurantMissionResponse> findRestaurantMissionList(Long restaurantId, Pageable pageable) {
+        List<GetRestaurantMissionResponse> content = jpaQueryFactory
+                .select(Projections.constructor(
+                        GetRestaurantMissionResponse.class,
+                        mission.id,
+                        mission.content,
+                        mission.point,
+                        mission.deadline,
+                        restaurant.name,
+                        restaurant.category,
+                        location.name
+                ))
+                .from(restaurant)
+                .where(restaurant.id.eq(restaurantId))
+                .join(restaurant.location, location)
+                .leftJoin(restaurant.missions, mission)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<Long> countQuery = jpaQueryFactory
+                .select(restaurant.count())
+                .from(restaurant)
+                .where(restaurant.id.eq(restaurantId));
+
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
+    }
+
     private BooleanExpression restaurantLocationEq(String locationName) {
         if (locationName == null || locationName.isBlank()) return null;
         return restaurant.location.name.containsIgnoreCase(locationName.trim());
@@ -71,8 +107,7 @@ public class RestaurantCustomRepositoryImpl implements RestaurantCustomRepositor
     private OrderSpecifier<?> getOrderCondition(String orderCondition) {
         if ("latest".equalsIgnoreCase(orderCondition)) {
             return restaurant.createdAt.desc();  // 최신순
-        }
-        else if("name".equalsIgnoreCase(orderCondition)) {
+        } else if ("name".equalsIgnoreCase(orderCondition)) {
             // 정렬 우선순위: 한글 > 영어 대문자 > 영어 소문자 > 특수문자
             return Expressions.stringPath("name").asc();
         }

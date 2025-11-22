@@ -24,4 +24,4 @@ spring:
 
 logging:
   discord:
-    web-hook-url: https://discord.com/api/webhooks/1410179787107991572/2vFFuEbOysRrHXoLEwUBOx18ODLQnJWVeTmt9Lf-Qt0pKhSGGIS1IzFN-ftgyHt7qg0i
+    web-hook-url: https://discord.com/api/webhooks/1410179787107991572/2vFFuEbOysRrHXoLEwUBOx18ODLQnJWVeTmt9Lf-Qt0pKhSGGIS1IzFN-ftgyH0i

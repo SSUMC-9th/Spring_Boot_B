@@ -1,25 +1,29 @@
 package com.ssu.umc9th2.spring_boot_b.domain.user.controller;
 
+import com.ssu.umc9th2.spring_boot_b.common.annotation.IsPagePositive;
 import com.ssu.umc9th2.spring_boot_b.common.response.ApiResponse;
+import com.ssu.umc9th2.spring_boot_b.common.response.PageResponse;
 import com.ssu.umc9th2.spring_boot_b.common.status.SuccessStatus;
-import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserMissionStatusResponse;
-import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserPageResponse;
-import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.GetUserReviewListResponse;
+import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.*;
 import com.ssu.umc9th2.spring_boot_b.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 @Tag(name = "유저")
+@Validated
 public class UserController {
 
     private final UserService userService;
@@ -34,29 +38,47 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/mission/status")
-    @Operation(summary = "유저 미션 상태", description = "유저 미션 상태 조회")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "유저 미션 상태 조회",content = @Content(schema = @Schema(implementation = GetUserMissionStatusResponse.class)))
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "유저가 존재하지 않는 경우",content = @Content())
-    public ResponseEntity<ApiResponse<List<GetUserMissionStatusResponse>>> getUserMissionStatus(
+    @Operation(summary = "유저 미션 조회", description = "유저 미션 조회")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "유저 미션 조회",content = @Content(schema = @Schema(implementation = GetUserMissionListResponse.class)))
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "page값이 0이하인 경우",content = @Content())
+    public ResponseEntity<ApiResponse<PageResponse<GetUserMissionResponse>>> getUserMissionStatus(
             @PathVariable Long userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @IsPagePositive @RequestParam() Integer page,
+            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "false") Boolean isCompleted
     ){
-        List<GetUserMissionStatusResponse> responses = userService.getUserMissionStatus(userId,page,size).getContent();
-        return ApiResponse.success(SuccessStatus.SUCCESS_200, responses);
+        Page<GetUserMissionResponse> responses = userService.getUserMissionList(userId,page,size,isCompleted);
+        return ApiResponse.success(SuccessStatus.SUCCESS_200, PageResponse.from(responses));
+    }
+
+    @PatchMapping("/{userId}/mission/{missionId}status")
+    @Operation(summary = "유저 미션 상태 변경", description = "유저 미션 상태 변경")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "유저 미션 상태 변경 성공",content = @Content(schema = @Schema(implementation = GetUserMissionListResponse.class)))
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "page값이 0이하인 경우",content = @Content())
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "미션이 존재하지 않는 경우",content = @Content())
+    public ResponseEntity<ApiResponse<PageResponse<GetUserMissionResponse>>> updateUserMissionStatus(
+            @PathVariable Long userId,
+            @PathVariable Long missionId,
+            @IsPagePositive @RequestParam() Integer page,
+            @RequestParam(defaultValue = "true") Boolean status,
+            @RequestParam(defaultValue = "10") Integer size
+    ){
+        userService.updateUserMissionStatus(userId, missionId, status);
+        Page<GetUserMissionResponse> responses = userService.getUserMissionList(userId,page,size,status);
+        return ApiResponse.success(SuccessStatus.SUCCESS_200, PageResponse.from(responses));
     }
 
     @GetMapping("/{userId}/review/list")
     @Operation(summary = "유저 리뷰 목록", description = "유저 리뷰 목록 조회")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "유저 리뷰 목록 조회",content = @Content(schema = @Schema(implementation = GetUserReviewListResponse.class)))
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "유저가 존재하지 않는 경우",content = @Content())
-    public ResponseEntity<ApiResponse<GetUserReviewListResponse>> getUserReviewList(
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "page값이 0이하인 경우",content = @Content())
+    public ResponseEntity<ApiResponse<PageResponse<GetUserReviewResponse>>> getUserReviewList(
             @PathVariable Long userId,
-            @RequestParam(required = false) String restaurantName,
-            @RequestParam(required = false) Double rating
+            @IsPagePositive @RequestParam() Integer page,
+            @RequestParam(defaultValue = "10") Integer size
     ) {
-        GetUserReviewListResponse response = userService.getUserReviewList(userId, restaurantName, rating);
-        return ApiResponse.success(SuccessStatus.SUCCESS_200, response);
+        Page<GetUserReviewResponse> response = userService.getUserReviewList(userId, PageRequest.of(page-1,size));
+        return ApiResponse.success(SuccessStatus.SUCCESS_200, PageResponse.from(response));
     }
 
     @PostMapping("/{userId}/missions/{missionId}")

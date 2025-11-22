@@ -4,26 +4,29 @@ import com.ssu.umc9th2.spring_boot_b.common.exception.GeneralException;
 import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
 import com.ssu.umc9th2.spring_boot_b.domain.mission.entity.Mission;
 import com.ssu.umc9th2.spring_boot_b.domain.mission.service.MissionService;
-import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewCustomRepositoryImpl;
+import com.ssu.umc9th2.spring_boot_b.domain.review.repository.ReviewCustomRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.dto.response.*;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.UserMission;
+import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserMissionCustomRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserMissionRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final UserMissionRepository userMissionRepository;
-    private final ReviewCustomRepositoryImpl reviewCustomRepositoryImpl;
+    private final UserMissionCustomRepository userMissionCustomRepository;
+    private final ReviewCustomRepository reviewCustomRepository;
     private final MissionService missionService;
 
     public GetUserPageResponse getUserPage(Long userId) {
@@ -38,18 +41,25 @@ public class UserService {
         );
     }
 
-    public GetUserReviewListResponse getUserReviewList(Long userId,String restaurantName, Double rating) {
-        getUserByUserId(userId);
-        List<GetUserReviewResponse> userReviewList = reviewCustomRepositoryImpl.findAllByUserWithFilter(userId, restaurantName, rating);
-        return new GetUserReviewListResponse(userReviewList);
+    public Page<GetUserReviewResponse> getUserReviewList(Long userId, Pageable pageable) {
+        return reviewCustomRepository.findUserReviewList(userId, pageable);
     }
 
-    public Page<GetUserMissionStatusResponse> getUserMissionStatus(Long userId, int page, int size) {
-        getUserByUserId(userId);
-        return userMissionRepository.getUserMissionStatus(userId, PageRequest.of(page, size));
+    @Transactional
+    public Page<GetUserMissionResponse> getUserMissionList(Long userId, Integer page, Integer size, Boolean isFinished) {
+        return userMissionCustomRepository.findUserMissionList(userId, PageRequest.of(page-1, size),isFinished);
     }
 
-    public Page<GetAvailableUserMissionResponse> getAvailableUserMission(Long userId, int page, int size) {
+    @Transactional
+    public void updateUserMissionStatus(Long userId, Long missionId, Boolean status) {
+        User user = getUserByUserId(userId);
+        Mission mission = missionService.getMissionByMissionId(missionId);
+        UserMission userMission = userMissionRepository.findByUserAndMission(user,mission);
+
+        userMission.updateIsCompleted(status);
+    }
+
+    public Page<GetAvailableUserMissionResponse> getAvailableUserMission(Long userId, Integer page, Integer size) {
         return userMissionRepository.getAvailableUserMission(userId, PageRequest.of(page,size), LocalDateTime.now());
     }
 

@@ -26,5 +26,9 @@ public class UserMission extends BaseEntity {
 
     @Column(nullable = false)
     private Boolean isCompleted;
+
+    public void updateIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
 }
 
