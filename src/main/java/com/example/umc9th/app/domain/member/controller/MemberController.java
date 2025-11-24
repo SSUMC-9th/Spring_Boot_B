@@ -5,6 +5,10 @@ import com.example.umc9th.app.domain.member.service.MemberService;
 import com.example.umc9th.app.domain.mission.enums.MemberMissionStatus;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.apiPayload.code.GeneralSuccessCode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +19,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/member")
+@Tag(name = "회원")
 public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{memberId}")
+    @Operation(summary = "마이페이지 정보", description = "마이페이지 정보를 가져옵니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "마이페이지 조회",content = @Content(schema = @Schema(implementation = GetMemberMyPageResponse.class)))
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "에러",content = @Content())
     public ApiResponse<GetMemberMyPageResponse> memberMyPage(@PathVariable Long memberId) {
         GetMemberMyPageResponse dto = memberService.memberMyPage(memberId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, dto);
