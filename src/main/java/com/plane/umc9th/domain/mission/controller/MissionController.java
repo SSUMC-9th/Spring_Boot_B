@@ -6,6 +6,7 @@ import com.plane.umc9th.domain.mission.exception.code.MissionSuccessCode;
 import com.plane.umc9th.domain.mission.service.MissionService;
 import com.plane.umc9th.global.apiPayload.ApiResponse;
 import com.plane.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.plane.umc9th.global.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -28,7 +29,7 @@ public class MissionController {
     })
     @GetMapping()
     public ApiResponse<MissionResDTO.MissionPreViewListDTO> getStoreMissions(
-            @RequestParam(defaultValue = "1") Integer page,
+            @ValidPage @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "1") long storeId
 
     ) {
@@ -47,7 +48,7 @@ public class MissionController {
     })
     @GetMapping(value = "my")
     public ApiResponse<MissionResDTO.MissionPreViewListDTO> getMyMissions(
-            @RequestParam(defaultValue = "1") Integer page,
+            @ValidPage @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "1") long memberId
 
     ) {

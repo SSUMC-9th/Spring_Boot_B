@@ -8,6 +8,7 @@ import com.plane.umc9th.domain.review.service.ReviewService;
 import com.plane.umc9th.domain.review.service.query.ReviewQueryService;
 import com.plane.umc9th.global.apiPayload.ApiResponse;
 import com.plane.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.plane.umc9th.global.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class ReviewController implements ReviewControllerDocs {
             @RequestParam Long memberId,
             @RequestParam(required = false) String restaurantName,
             @RequestParam(required = false) Integer ratingGroup,
-            @RequestParam(defaultValue = "1") Integer page
+            @ValidPage @RequestParam(defaultValue = "1") Integer page
     ) {
         GeneralSuccessCode code = GeneralSuccessCode.REVIEW_OK;
         return ApiResponse.onSuccess(
