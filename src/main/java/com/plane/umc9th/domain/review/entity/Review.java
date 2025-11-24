@@ -33,7 +33,7 @@ public class Review extends BaseEntity {
     @OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
     private List<ReviewImage> images;
 
-    private int rating;
+    private float rating;
     private String content;
     private String reply;
 }

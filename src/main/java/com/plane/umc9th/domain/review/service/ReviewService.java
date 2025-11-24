@@ -10,6 +10,8 @@ import com.plane.umc9th.domain.review.dto.ReviewResDTO;
 import com.plane.umc9th.domain.review.entity.Review;
 import com.plane.umc9th.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +35,9 @@ public class ReviewService {
         return ReviewConverter.toCreateDTO(review);
     }
 
-    public List<Review> getMyReviews(Long memberId, String restaurantName, Integer ratingGroup) {
-        return reviewRepository.findMyReviews(memberId, restaurantName, ratingGroup);
+    public ReviewResDTO.ReviewPreViewListDTO getMyReviews(Long memberId, String restaurantName, Integer ratingGroup, Integer page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        Page<Review> reviews = reviewRepository.findMyReviews(memberId, restaurantName, ratingGroup, pageRequest);
+        return ReviewConverter.toReviewPreviewListDTO(reviews);
     }
 }

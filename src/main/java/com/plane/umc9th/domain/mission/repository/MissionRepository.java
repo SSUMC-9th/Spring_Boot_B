@@ -22,9 +22,21 @@ public interface MissionRepository extends JpaRepository<Mission, Integer> {
 
     int countByMemberAndIsCompleted(Member member, boolean isCompleted);
 
-    @Query("SELECT count(*) FROM Mission m " +
+    @Query("SELECT m FROM Mission m " +
             "WHERE m.member.id=:memberId AND " +
             "m.isCompleted=false AND " +
             "m.deadline>CURRENT_TIMESTAMP")
-    List<Mission> findActiveMissionsByMemeberId(@Param("memberId") Long memeberId);
+    public List<Mission> findActiveMissionsByMemeberId(@Param("memberId") Long memeberId);
+
+    @Query("SELECT m FROM Mission m " +
+            "WHERE m.member.id=:memberId AND " +
+            "m.isCompleted=false AND " +
+            "m.deadline>CURRENT_TIMESTAMP")
+    public Page<Mission> findMyMissions(@Param("memberId") Long memeberId, Pageable pageable);
+
+    @Query("SELECT m FROM Mission m " +
+            "WHERE m.restaurant.id=:restaurantId AND " +
+            "m.isCompleted=false AND " +
+            "m.deadline>CURRENT_TIMESTAMP")
+    public Page<Mission> findByRestaurantId(@Param("restaurantId") Long restaurantId, Pageable pageable);
 }
