@@ -6,6 +6,7 @@ import com.example.umc9th.infra.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,10 @@ public class Mission extends BaseTimeEntity {
     @Column(nullable = false)
     private Long cashRequirement;
 
-    @Column(nullable = false)
+    @Column
+    private LocalDate dueDate;
+
+    @Column
     private Long verifyNumber;
 
     @Column(nullable = false)

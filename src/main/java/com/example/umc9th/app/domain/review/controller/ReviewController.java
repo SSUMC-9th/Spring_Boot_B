@@ -1,7 +1,7 @@
 package com.example.umc9th.app.domain.review.controller;
 
 
-import com.example.umc9th.app.domain.review.dto.CreateReviewRequest;
+import com.example.umc9th.app.domain.review.dto.PostCreateReviewRequest;
 import com.example.umc9th.app.domain.review.dto.GetMyReviewResponse;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.app.domain.review.service.ReviewQueryService;
@@ -27,7 +27,7 @@ public class ReviewController {
 
     //Post 요청 담당
     @PostMapping("")
-    public void createReview(@RequestBody @Valid CreateReviewRequest request) {
+    public void createReview(@RequestBody @Valid PostCreateReviewRequest request) {
         reviewService.createReview(request);
     }
 

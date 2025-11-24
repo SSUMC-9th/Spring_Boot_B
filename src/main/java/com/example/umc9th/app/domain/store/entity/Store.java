@@ -33,7 +33,6 @@ public class Store extends BaseTimeEntity {
     @JoinColumn(name = "food_category_id", nullable = false)
     private FoodCategory foodCategory;
 
-
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Review> reviews = new ArrayList<>();

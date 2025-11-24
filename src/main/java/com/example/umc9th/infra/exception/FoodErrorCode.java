@@ -1,4 +1,4 @@
-package com.example.umc9th.app.domain.mission.exception;
+package com.example.umc9th.infra.exception;
 
 
 import com.example.umc9th.infra.apiPayload.code.BaseErrorCode;
@@ -9,12 +9,13 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 //BaseErrorCode 구현(각 도메인별로 다르게)
-public enum MissionErrorCode implements BaseErrorCode {
+public enum FoodErrorCode implements BaseErrorCode {
 
     // For test
-    MISSION_EXCEPTION(HttpStatus.BAD_REQUEST, "MISSION400_1", "미션 에러 발생"),
-    NOT_FOUND(HttpStatus.NOT_FOUND,"MISSION400_2","해당 미션 찾을 수 없음"),
-    ALREADY_DONE(HttpStatus.BAD_REQUEST,"MISSION400_3","이미 완료한 미션");
+    NOT_FOUND(HttpStatus.OK,
+            "FOOD400_1",
+            "일치하는 카테고리가 없습니다."),
+    ;
 
     private final HttpStatus status;
     private final String code;
