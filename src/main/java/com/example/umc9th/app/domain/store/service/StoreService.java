@@ -2,10 +2,7 @@ package com.example.umc9th.app.domain.store.service;
 
 import com.example.umc9th.app.domain.mission.entity.Mission;
 import com.example.umc9th.app.domain.mission.repository.MissionRepository;
-import com.example.umc9th.app.domain.store.dto.PostCreateStoreMissionRequest;
-import com.example.umc9th.app.domain.store.dto.PostCreateStoreMissionResponse;
-import com.example.umc9th.app.domain.store.dto.PostCreateStoreRequest;
-import com.example.umc9th.app.domain.store.dto.PostCreateStoreResponse;
+import com.example.umc9th.app.domain.store.dto.*;
 import com.example.umc9th.app.domain.store.entity.Store;
 import com.example.umc9th.app.domain.store.entity.StoreHours;
 import com.example.umc9th.app.domain.store.exception.StoreErrorCode;
@@ -19,6 +16,7 @@ import com.example.umc9th.infra.exception.FoodException;
 import com.example.umc9th.infra.repository.FoodCategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
