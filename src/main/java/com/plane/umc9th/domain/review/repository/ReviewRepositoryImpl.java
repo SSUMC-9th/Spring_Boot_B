@@ -5,6 +5,9 @@ import com.plane.umc9th.domain.review.entity.QReview;
 import com.plane.umc9th.domain.review.entity.Review;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -15,7 +18,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryForDSL {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Review> findMyReviews(Long memberId, String restaurantName, Integer ratingGroup) {
+    public Page<Review> findMyReviews(Long memberId, String restaurantName, Integer ratingGroup, Pageable pageable) {
         QReview review = QReview.review;
         QRestaurant restaurant = QRestaurant.restaurant;
 
@@ -34,8 +37,19 @@ public class ReviewRepositoryImpl implements ReviewRepositoryForDSL {
             query.where(review.rating.between(min, max));
         }
 
-        return query
+        List<Review> results = query
                 .orderBy(review.createdAt.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        Long total = queryFactory
+                .select(review.count())
+                .from(review)
+                .where(review.member.id.eq(memberId))
+                .fetchOne();
+
+        return new PageImpl<>(results, pageable, total);
     }
+
 }

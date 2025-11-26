@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Builder
+@Getter
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor(access=AccessLevel.PRIVATE)
 @Table(name="mission")

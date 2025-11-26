@@ -4,6 +4,7 @@ import com.plane.umc9th.global.apiPayload.ApiResponse;
 import com.plane.umc9th.global.apiPayload.code.BaseErrorCode;
 import com.plane.umc9th.global.apiPayload.code.GeneralErrorCode;
 import com.plane.umc9th.global.apiPayload.exception.GeneralException;
+import com.plane.umc9th.global.apiPayload.exception.PageException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +19,19 @@ public class GeneralExceptionAdvice {
     // 애플리케이션에서 발생하는 커스텀 예외를 처리
     @ExceptionHandler(GeneralException.class)
     public ResponseEntity<ApiResponse<Void>> handleException(
+            GeneralException ex
+    ) {
+
+        return ResponseEntity.status(ex.getCode().getStatus())
+                .body(ApiResponse.onFailure(
+                                ex.getCode(),
+                                null
+                        )
+                );
+    }
+
+    @ExceptionHandler(PageException.class)
+    public ResponseEntity<ApiResponse<Void>> handlePageException(
             GeneralException ex
     ) {
 
