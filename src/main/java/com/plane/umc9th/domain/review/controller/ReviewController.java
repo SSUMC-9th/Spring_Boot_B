@@ -1,14 +1,14 @@
 package com.plane.umc9th.domain.review.controller;
 
+import com.plane.umc9th.domain.review.dto.ReviewReqDTO;
+import com.plane.umc9th.domain.review.dto.ReviewResDTO;
 import com.plane.umc9th.domain.review.entity.Review;
 import com.plane.umc9th.domain.review.service.ReviewService;
 import com.plane.umc9th.global.apiPayload.ApiResponse;
 import com.plane.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +29,11 @@ public class ReviewController {
         return ApiResponse.onSuccess(
                 code,
                 reviewService.getMyReviews(memberId, restaurantName, ratingGroup));
+    }
+
+    @PostMapping()
+    public ApiResponse<ReviewResDTO.CreateDTO> createReview(
+            @RequestBody @Valid ReviewReqDTO.CreateDTO dto) {
+        return ApiResponse.onSuccess(GeneralSuccessCode.CREATED, reviewService.create(dto));
     }
 }

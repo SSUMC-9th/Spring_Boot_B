@@ -4,11 +4,6 @@ import com.plane.umc9th.domain.catergory.entity.FoodCatergory;
 import com.plane.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Type;
-
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 @Builder

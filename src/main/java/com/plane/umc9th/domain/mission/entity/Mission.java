@@ -41,6 +41,6 @@ public class Mission extends BaseEntity {
     @Column // 추후에는 인메모리 방식으로 즉석 생성될 듯
     private String verificationCode;
 
-    @Column
+    @Column()
     private Boolean isCompleted;
 }

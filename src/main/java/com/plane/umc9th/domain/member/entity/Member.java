@@ -1,6 +1,5 @@
 package com.plane.umc9th.domain.member.entity;
 
-import com.plane.umc9th.domain.catergory.entity.FoodCatergory;
 import com.plane.umc9th.domain.inquiry.entity.Inquiry;
 import com.plane.umc9th.domain.member.enums.Gender;
 import com.plane.umc9th.domain.member.enums.Provider;
@@ -65,8 +64,12 @@ public class Member {
     private int point;
     private String phoneNumber;
     private boolean isVerified;
-    @Column(columnDefinition = "DATETIME")
-    private LocalDateTime inactive_date;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime inactiveDate;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime createdAt;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime updatedAt;
 }

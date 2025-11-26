@@ -6,9 +6,7 @@ import com.plane.umc9th.domain.member.entity.Member;
 import com.plane.umc9th.domain.member.repository.MemberRepository;
 import com.plane.umc9th.domain.mission.entity.Mission;
 import com.plane.umc9th.domain.mission.repository.MissionRepository;
-import com.plane.umc9th.domain.review.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
