@@ -3,20 +3,16 @@ package com.ssu.umc9th2.spring_boot_b.common.exception;
 import com.ssu.umc9th2.spring_boot_b.common.base.BaseStatus;
 import com.ssu.umc9th2.spring_boot_b.common.response.ApiResponse;
 import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
 @Slf4j
-public class GeneralExceptionAdvice extends ResponseEntityExceptionHandler {
+public class GeneralExceptionAdvice  {
 
     @ExceptionHandler(GeneralException.class)
     public ResponseEntity<ApiResponse<Void>> handleGeneralException(GeneralException e) {
@@ -26,6 +22,18 @@ public class GeneralExceptionAdvice extends ResponseEntityExceptionHandler {
             log.warn("[*] GeneralException : {}", e.getMessage());
         }
         return ApiResponse.error(e.getErrorStatus());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Void>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+        return ApiResponse.error(ErrorStatus.INVALID_PAGE_REQUEST,message);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleConstraintViolation(ConstraintViolationException ex) {
+        String message = ex.getConstraintViolations().iterator().next().getMessage();
+        return ApiResponse.error(ErrorStatus.INVALID_PAGE_REQUEST, message);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -48,33 +56,6 @@ public class GeneralExceptionAdvice extends ResponseEntityExceptionHandler {
         return ApiResponse.error(ErrorStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            HttpHeaders headers,
-            HttpStatusCode status,
-            WebRequest request
-    ) {
-        BaseStatus errorCode = ErrorStatus.BAD_REQUEST;
-        String errorMessage = ex.getBindingResult().getFieldErrors().isEmpty()
-                ? errorCode.getMessage()
-                : ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-
-        ApiResponse<Void> body = createApiResponse(errorCode, errorMessage);
-        return handleExceptionInternal(ex, body, headers, status, request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
-            HttpRequestMethodNotSupportedException ex,
-            HttpHeaders headers,
-            HttpStatusCode status,
-            WebRequest request
-    ) {
-        BaseStatus errorCode = ErrorStatus.METHOD_NOT_ALLOWED;
-        ApiResponse<Void> body = createApiResponse(errorCode, null);
-        return handleExceptionInternal(ex, body, headers, status, request);
-    }
 
     private ApiResponse<Void> createApiResponse(BaseStatus errorStatus, String errorMessage) {
         return new ApiResponse<>(

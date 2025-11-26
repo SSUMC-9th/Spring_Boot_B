@@ -6,6 +6,8 @@ import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,5 +30,8 @@ public class Review extends BaseEntity {
     private Double rating;
 
     private String content;
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ReviewImage> reviewImageList;
 }
 

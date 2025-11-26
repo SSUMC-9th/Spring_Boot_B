@@ -24,7 +24,10 @@ public enum ErrorStatus implements BaseStatus {
     MISSION_NOT_FOUND("MISSION404",HttpStatus.NOT_FOUND, "미션이 존재하지 않습니다."),
 
     RESTAURANT_ALREADY_EXIST("RESTAURANT_409", HttpStatus.CONFLICT, "이미 존재하는 식당입니다."),
-    USER_MISSION_ALREADY_EXIST("USER_MISSION_409", HttpStatus.CONFLICT, "이미 존재하는 유저 미션입니다.");
+    USER_MISSION_ALREADY_EXIST("USER_MISSION_409", HttpStatus.CONFLICT, "이미 존재하는 유저 미션입니다."),
+
+    // 페이징
+    INVALID_PAGE_REQUEST("COM_400", HttpStatus.BAD_REQUEST,"페이지 값은 null이거나 0이하일 수 없습니다.");
     private final String code;
     private final HttpStatus httpStatus;
     private final String message;
