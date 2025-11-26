@@ -1,6 +1,5 @@
 package com.example.umc9th.app.domain.store.controller;
 
-import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.app.domain.store.dto.*;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.validator.ValidPage;

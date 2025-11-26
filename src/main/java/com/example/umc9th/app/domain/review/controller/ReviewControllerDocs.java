@@ -4,7 +4,6 @@ import com.example.umc9th.app.domain.review.dto.GetMyReviewResponse;
 import com.example.umc9th.app.domain.review.dto.PostCreateReviewRequest;
 import com.example.umc9th.app.domain.review.dto.ReviewResponse;
 import com.example.umc9th.app.domain.review.entity.Review;
-import com.example.umc9th.app.domain.store.controller.StoreControllerDocs;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;

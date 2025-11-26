@@ -2,26 +2,19 @@ package com.example.umc9th.app.domain.review.service;
 
 import com.example.umc9th.app.domain.member.entity.Member;
 import com.example.umc9th.app.domain.member.service.MemberService;
-import com.example.umc9th.app.domain.review.converter.ReviewConverter;
 import com.example.umc9th.app.domain.review.dto.PostCreateReviewRequest;
-import com.example.umc9th.app.domain.review.dto.ReviewResponse;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.app.domain.review.repository.ReviewRepository;
 import com.example.umc9th.app.domain.store.entity.Store;
-import com.example.umc9th.app.domain.store.exception.StoreErrorCode;
-import com.example.umc9th.app.domain.store.exception.StoreException;
 import com.example.umc9th.app.domain.store.repository.StoreRepository;
 import com.example.umc9th.app.domain.store.service.StoreService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewRepository reviewRepository;
-    private final StoreRepository storeRepository;
     private final MemberService memberService;
     private final StoreService storeService;
     public void createReview(PostCreateReviewRequest request){

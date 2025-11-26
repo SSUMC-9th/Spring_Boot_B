@@ -6,7 +6,6 @@ import com.example.umc9th.app.domain.home.exception.HomeException;
 import com.example.umc9th.app.domain.member.dto.GetAvailableMemberMissionResponse;
 import com.example.umc9th.app.domain.member.dto.GetMemberHomeResponse;
 import com.example.umc9th.app.domain.member.service.MemberService;
-import com.example.umc9th.infra.validator.ValidPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

@@ -1,16 +1,12 @@
 package com.example.umc9th.app.domain.store.service;
 
 import com.example.umc9th.app.domain.mission.entity.Mission;
-import com.example.umc9th.app.domain.mission.entity.QMission;
 import com.example.umc9th.app.domain.mission.repository.MissionRepository;
 import com.example.umc9th.app.domain.store.dto.GetStoreMissionResponse;
 import com.example.umc9th.app.domain.store.entity.Store;
 import com.example.umc9th.app.domain.store.exception.StoreErrorCode;
 import com.example.umc9th.app.domain.store.exception.StoreException;
 import com.example.umc9th.app.domain.store.repository.StoreRepository;
-
-import com.querydsl.core.BooleanBuilder;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

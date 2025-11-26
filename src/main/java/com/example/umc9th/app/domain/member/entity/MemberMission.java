@@ -6,7 +6,6 @@ import com.example.umc9th.infra.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 
 
 @Entity

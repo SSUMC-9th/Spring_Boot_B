@@ -2,7 +2,6 @@ package com.example.umc9th.app.domain.home.controller;
 
 import com.example.umc9th.app.domain.home.dto.GetHomeResponse;
 import com.example.umc9th.app.domain.home.service.HomeService;
-import com.example.umc9th.app.domain.member.service.MemberService;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.apiPayload.code.GeneralSuccessCode;
 import com.example.umc9th.infra.validator.ValidPage;

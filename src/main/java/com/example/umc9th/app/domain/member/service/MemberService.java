@@ -28,7 +28,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,7 +77,6 @@ public class MemberService {
 
     @Transactional
     public PostCreateMemberResponse.JoinDTO createMember(PostCreateMemberRequest.JoinDTO dto) {
-        List<MemberFoodCategory> memberFoodList = new ArrayList<>();
         Member newMember = Member.builder()
                 .gender(dto.gender())
                 .birth(dto.birth())
@@ -142,11 +140,12 @@ public class MemberService {
             throw new MissionException(MissionErrorCode.ALREADY_DONE);
         }
         memberMission.updateStatus(COMPLETED);
+        Mission selectedMission = memberMission.getMission();
         MemberMissionResponse response = new MemberMissionResponse(
-                memberMission.getMission().getId(),
-                memberMission.getMission().getReward(),
-                memberMission.getMission().getCashRequirement(),
-                memberMission.getMission().getStore().getName(),
+                selectedMission.getId(),
+                selectedMission.getReward(),
+                selectedMission.getCashRequirement(),
+                selectedMission.getStore().getName(),
                 memberMission.getMemberMissionStatus()
         );
 

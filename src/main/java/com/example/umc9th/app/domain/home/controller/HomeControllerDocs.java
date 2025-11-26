@@ -1,7 +1,6 @@
 package com.example.umc9th.app.domain.home.controller;
 
 import com.example.umc9th.app.domain.home.dto.GetHomeResponse;
-import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;

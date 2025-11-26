@@ -10,13 +10,11 @@ import com.example.umc9th.app.domain.store.exception.StoreException;
 import com.example.umc9th.app.domain.store.repository.StoreRepository;
 import com.example.umc9th.infra.entity.Address;
 import com.example.umc9th.infra.entity.FoodCategory;
-import com.example.umc9th.infra.enums.FoodCategoryName;
 import com.example.umc9th.infra.exception.FoodErrorCode;
 import com.example.umc9th.infra.exception.FoodException;
 import com.example.umc9th.infra.repository.FoodCategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
