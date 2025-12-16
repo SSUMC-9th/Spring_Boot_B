@@ -1,6 +1,5 @@
 package com.plane.umc9th.domain.member.entity;
 
-import com.plane.umc9th.domain.catergory.entity.FoodCatergory;
 import com.plane.umc9th.domain.inquiry.entity.Inquiry;
 import com.plane.umc9th.domain.member.enums.Gender;
 import com.plane.umc9th.domain.member.enums.Provider;
@@ -8,6 +7,7 @@ import com.plane.umc9th.domain.member.enums.Status;
 import com.plane.umc9th.domain.mission.entity.Mission;
 import com.plane.umc9th.domain.notification.entity.Notification;
 import com.plane.umc9th.domain.review.entity.Review;
+import com.plane.umc9th.global.auth.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +27,13 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false, unique = true)
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     // Foreign Keys
     @OneToOne
@@ -59,14 +66,17 @@ public class Member {
     @Column(columnDefinition = "DATE")
     private LocalDate birthDate;
     private String address;
-    private String email;
     @Enumerated(EnumType.STRING)
     private Provider provider;
     private int point;
     private String phoneNumber;
     private boolean isVerified;
-    @Column(columnDefinition = "DATETIME")
-    private LocalDateTime inactive_date;
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime inactiveDate;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime createdAt;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime updatedAt;
 }

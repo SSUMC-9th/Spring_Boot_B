@@ -1,11 +1,9 @@
 package com.plane.umc9th.domain.review.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.plane.umc9th.domain.inquiry.enums.InquiryType;
 import com.plane.umc9th.domain.member.entity.Member;
 import com.plane.umc9th.domain.restaurant.entity.Restaurant;
 import com.plane.umc9th.global.entity.BaseEntity;
-import com.plane.umc9th.global.entity.ImageEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
