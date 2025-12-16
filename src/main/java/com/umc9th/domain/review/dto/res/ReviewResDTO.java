@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto.res;
+package com.umc9th.domain.review.dto.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

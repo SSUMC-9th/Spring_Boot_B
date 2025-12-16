@@ -1,7 +1,7 @@
-package com.example.umc9th.global.validator;
+package com.umc9th.global.validator;
 
-import com.example.umc9th.domain.category.repository.CategoryRepository;
-import com.example.umc9th.global.annotation.ExistCategories;
+import com.umc9th.domain.category.repository.CategoryRepository;
+import com.umc9th.global.annotation.ExistCategories;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;

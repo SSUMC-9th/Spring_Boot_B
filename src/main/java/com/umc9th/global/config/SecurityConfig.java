@@ -1,8 +1,8 @@
-package com.example.umc9th.global.config;
+package com.umc9th.global.config;
 
-import com.example.umc9th.domain.user.userdetail.CustomUserDetailsService;
-import com.example.umc9th.global.jwt.JwtAuthFilter;
-import com.example.umc9th.global.jwt.JwtUtil;
+import com.umc9th.domain.user.userdetail.CustomUserDetailsService;
+import com.umc9th.global.jwt.JwtAuthFilter;
+import com.umc9th.global.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

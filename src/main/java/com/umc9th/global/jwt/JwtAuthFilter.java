@@ -1,8 +1,8 @@
-package com.example.umc9th.global.jwt;
+package com.umc9th.global.jwt;
 
-import com.example.umc9th.domain.user.userdetail.CustomUserDetailsService;
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.domain.user.userdetail.CustomUserDetailsService;
+import com.umc9th.global.apiPayload.ApiResponse;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

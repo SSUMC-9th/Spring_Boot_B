@@ -1,6 +1,6 @@
-package com.example.umc9th.domain.user.userdetail;
+package com.umc9th.domain.user.userdetail;
 
-import com.example.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

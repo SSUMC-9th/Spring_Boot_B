@@ -1,6 +1,6 @@
-package com.example.umc9th.global.jwt;
+package com.umc9th.global.jwt;
 
-import com.example.umc9th.domain.user.userdetail.CustomUserDetails;
+import com.umc9th.domain.user.userdetail.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;

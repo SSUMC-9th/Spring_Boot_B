@@ -1,6 +1,6 @@
-package com.example.umc9th.domain.mission.repository;
+package com.umc9th.domain.mission.repository;
 
-import com.example.umc9th.domain.user.entity.UserMission;
+import com.umc9th.domain.user.entity.UserMission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

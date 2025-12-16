@@ -1,16 +1,16 @@
-package com.example.umc9th.domain.user.controller;
+package com.umc9th.domain.user.controller;
 
 
-import com.example.umc9th.domain.mission.dto.res.GetUserMissionResponse;
-import com.example.umc9th.domain.review.dto.UserReviewDto;
-import com.example.umc9th.domain.user.dto.UserReqDTO;
-import com.example.umc9th.domain.user.dto.UserResDTO;
-import com.example.umc9th.domain.user.service.UserCommandService;
-import com.example.umc9th.domain.user.service.UserQueryService;
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
-import com.example.umc9th.global.annotation.PageCheck;
-import com.example.umc9th.global.apiPayload.response.PageResponse;
+import com.umc9th.domain.mission.dto.res.GetUserMissionResponse;
+import com.umc9th.domain.review.dto.UserReviewDto;
+import com.umc9th.domain.user.dto.UserReqDTO;
+import com.umc9th.domain.user.dto.UserResDTO;
+import com.umc9th.domain.user.service.UserCommandService;
+import com.umc9th.domain.user.service.UserQueryService;
+import com.umc9th.global.apiPayload.ApiResponse;
+import com.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.umc9th.global.annotation.PageCheck;
+import com.umc9th.global.apiPayload.response.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

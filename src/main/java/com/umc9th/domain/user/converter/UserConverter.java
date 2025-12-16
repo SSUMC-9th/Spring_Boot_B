@@ -1,10 +1,10 @@
-package com.example.umc9th.domain.user.converter;
+package com.umc9th.domain.user.converter;
 
-import com.example.umc9th.domain.user.dto.UserReqDTO;
-import com.example.umc9th.domain.user.dto.UserResDTO;
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.global.enums.Role;
-import com.example.umc9th.domain.user.enums.SocialType;
+import com.umc9th.domain.user.dto.UserReqDTO;
+import com.umc9th.domain.user.dto.UserResDTO;
+import com.umc9th.domain.user.entity.User;
+import com.umc9th.global.enums.Role;
+import com.umc9th.domain.user.enums.SocialType;
 public class UserConverter {
 
     //DTO, Salted Passwd, Role -> Entity

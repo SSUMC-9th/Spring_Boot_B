@@ -1,12 +1,12 @@
-package com.example.umc9th.domain.user.service;
+package com.umc9th.domain.user.service;
 
 
-import com.example.umc9th.domain.user.converter.UserConverter;
-import com.example.umc9th.domain.user.dto.UserReqDTO;
-import com.example.umc9th.domain.user.dto.UserResDTO;
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.domain.user.repository.UserRepository;
-import com.example.umc9th.global.enums.Role;
+import com.umc9th.domain.user.converter.UserConverter;
+import com.umc9th.domain.user.dto.UserReqDTO;
+import com.umc9th.domain.user.dto.UserResDTO;
+import com.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.repository.UserRepository;
+import com.umc9th.global.enums.Role;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

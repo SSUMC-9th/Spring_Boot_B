@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.user.dto;
+package com.umc9th.domain.user.dto;
 
 import lombok.Builder;
 

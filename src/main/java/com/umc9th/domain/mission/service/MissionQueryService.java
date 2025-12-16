@@ -1,11 +1,11 @@
-package com.example.umc9th.domain.mission.service;
+package com.umc9th.domain.mission.service;
 
-import com.example.umc9th.domain.mission.converter.MissionConverter;
-import com.example.umc9th.domain.mission.dto.res.StoreMissionDto;
-import com.example.umc9th.domain.mission.entity.Mission;
-import com.example.umc9th.domain.mission.repository.MissionRepository;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import com.umc9th.domain.mission.converter.MissionConverter;
+import com.umc9th.domain.mission.dto.res.StoreMissionDto;
+import com.umc9th.domain.mission.entity.Mission;
+import com.umc9th.domain.mission.repository.MissionRepository;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

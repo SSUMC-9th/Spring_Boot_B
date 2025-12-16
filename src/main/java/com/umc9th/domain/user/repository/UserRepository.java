@@ -1,6 +1,6 @@
-package com.example.umc9th.domain.user.repository;
+package com.umc9th.domain.user.repository;
 
-import com.example.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

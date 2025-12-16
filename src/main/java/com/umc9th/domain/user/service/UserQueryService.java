@@ -1,20 +1,20 @@
 // com/example/umc9th/domain/user/service/UserQueryService.java (새 파일)
-package com.example.umc9th.domain.user.service;
+package com.umc9th.domain.user.service;
 
-import com.example.umc9th.domain.mission.converter.UserMissionConverter;
-import com.example.umc9th.domain.mission.dto.res.GetUserMissionResponse;
-import com.example.umc9th.domain.mission.repository.UserMissionRepository;
-import com.example.umc9th.domain.review.dto.UserReviewDto;
-import com.example.umc9th.domain.user.converter.UserConverter;
-import com.example.umc9th.domain.user.dto.UserReqDTO;
-import com.example.umc9th.domain.user.dto.UserResDTO;
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.domain.user.repository.MyPageRepository;
-import com.example.umc9th.domain.user.repository.UserRepository;
-import com.example.umc9th.domain.user.userdetail.CustomUserDetails;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
-import com.example.umc9th.global.jwt.JwtUtil;
+import com.umc9th.domain.mission.converter.UserMissionConverter;
+import com.umc9th.domain.mission.dto.res.GetUserMissionResponse;
+import com.umc9th.domain.mission.repository.UserMissionRepository;
+import com.umc9th.domain.review.dto.UserReviewDto;
+import com.umc9th.domain.user.converter.UserConverter;
+import com.umc9th.domain.user.dto.UserReqDTO;
+import com.umc9th.domain.user.dto.UserResDTO;
+import com.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.repository.MyPageRepository;
+import com.umc9th.domain.user.repository.UserRepository;
+import com.umc9th.domain.user.userdetail.CustomUserDetails;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.global.apiPayload.exception.GeneralException;
+import com.umc9th.global.jwt.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

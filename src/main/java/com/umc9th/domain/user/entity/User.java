@@ -1,10 +1,10 @@
-package com.example.umc9th.domain.user.entity;
+package com.umc9th.domain.user.entity;
 
-import com.example.umc9th.global.enums.Role;
-import com.example.umc9th.domain.user.enums.Address;
-import com.example.umc9th.domain.user.enums.Gender;
-import com.example.umc9th.domain.user.enums.SocialType;
-import com.example.umc9th.global.entity.BaseEntity;
+import com.umc9th.global.enums.Role;
+import com.umc9th.domain.user.enums.Address;
+import com.umc9th.domain.user.enums.Gender;
+import com.umc9th.domain.user.enums.SocialType;
+import com.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

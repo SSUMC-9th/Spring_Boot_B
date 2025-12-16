@@ -1,9 +1,9 @@
-package com.example.umc9th.domain.user.userdetail;
+package com.umc9th.domain.user.userdetail;
 
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.domain.user.repository.UserRepository;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import com.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.repository.UserRepository;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.global.apiPayload.exception.GeneralException;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

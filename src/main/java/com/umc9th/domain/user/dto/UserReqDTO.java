@@ -1,8 +1,8 @@
-package com.example.umc9th.domain.user.dto;
+package com.umc9th.domain.user.dto;
 
-import com.example.umc9th.domain.user.enums.Address;
-import com.example.umc9th.domain.user.enums.Gender;
-import com.example.umc9th.global.annotation.ExistCategories;
+import com.umc9th.domain.user.enums.Address;
+import com.umc9th.domain.user.enums.Gender;
+import com.umc9th.global.annotation.ExistCategories;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
