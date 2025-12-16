@@ -1,7 +1,7 @@
-package com.umc9th.domain.mission.repository;
+package com.example.umc9th.domain.mission.repository;
 
-import com.umc9th.domain.mission.dto.UserMissionDto;
-import com.umc9th.domain.mission.entity.Mission;
+import com.example.umc9th.domain.mission.dto.UserMissionDto;
+import com.example.umc9th.domain.mission.entity.Mission;
 import org.springframework.data.domain.Page; // 💡 페이징 처리를 위해 Page 클래스 사용
 import org.springframework.data.domain.Pageable; // 💡 페이징 정보를 받기 위해 Pageable 사용
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface MissionRepository extends JpaRepository<Mission, Long> {
 
     //내가 진행중/완료한 미션 모아보기 쿼리 (페이징 포함)
-    @Query("SELECT new com.umc9th.domain.mission.dto.UserMissionDto(" +
+    @Query("SELECT new com.example.umc9th.domain.mission.dto.UserMissionDto(" +
             "um.id, " +
             "m.id, " +
             "s.storeName, " +
@@ -33,4 +33,6 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
     // List 대신 Page<DTO>를 반환하여 페이징을 처리하고, Pageable 객체를 인자로
     //Page는 데이터 외에 전체 개수, 총 페이지 수 등 페이지네이션 메타 정보를 함께 반환
     Page<UserMissionDto> findUserMissionsByUserId(@Param("userId") Long userId, Pageable pageable);
+    // 가게 id로 mission 검색
+    Page<Mission> findByStoreId(Long storeId, Pageable pageable);
 }

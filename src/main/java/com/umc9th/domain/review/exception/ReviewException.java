@@ -1,4 +1,4 @@
-package com.umc9th.domain.review.exception; // ⭐️ 새 패키지
+package com.umc9th.domain.review.exception;
 
 import com.umc9th.global.apiPayload.code.BaseErrorCode;
 import com.umc9th.global.apiPayload.exception.GeneralException;
