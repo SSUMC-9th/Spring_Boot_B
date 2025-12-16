@@ -93,4 +93,14 @@ public class UserService {
         return userMissionRepository.existsByUserAndMission(user, mission);
     }
 
+    // 이메일로 유저 찾기
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.EMAIL_NOT_FOUND));
+    }
+
+    public void updateRefreshToken(User user, String refreshToken) {
+        user.updateRefreshToken(refreshToken);
+    }
+
 }

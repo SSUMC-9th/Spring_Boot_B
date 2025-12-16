@@ -1,15 +1,18 @@
 package com.ssu.umc9th2.spring_boot_b.domain.auth.service;
 
+import com.ssu.umc9th2.spring_boot_b.common.exception.GeneralException;
+import com.ssu.umc9th2.spring_boot_b.common.jwt.JwtService;
+import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.CustomUserDetails;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginRequest;
-import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginResponse;
+import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.LoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.SignupRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.user.converter.UserConverter;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import com.ssu.umc9th2.spring_boot_b.domain.user.enums.UserRole;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserRepository;
+import com.ssu.umc9th2.spring_boot_b.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -27,24 +30,38 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserConverter userConverter;
+    private final UserService userService;
+    private final JwtService jwtService;
 
+//    public LoginResponse login(LoginRequest request) {
+//        Authentication authentication =
+//                authenticationManager.authenticate(
+//                        new UsernamePasswordAuthenticationToken(
+//                                request.email(),
+//                                request.password()
+//                        )
+//                );
+//
+//        SecurityContextHolder.getContext()
+//                .setAuthentication(authentication);
+//
+//        CustomUserDetails user =
+//                (CustomUserDetails) authentication.getPrincipal();
+//
+//        return userConverter.toLoginResponse(user);
+//    }
 
+    // 로그인
+    @Transactional
     public LoginResponse login(LoginRequest request) {
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                request.email(),
-                                request.password()
-                        )
-                );
+        User user = userService.getUserByEmail(request.email());
+        validatePasswordMatch(request.password(), user.getPassword());
 
-        SecurityContextHolder.getContext()
-                .setAuthentication(authentication);
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
 
-        CustomUserDetails user =
-                (CustomUserDetails) authentication.getPrincipal();
-
-        return userConverter.toLoginResponse(user);
+        userService.updateRefreshToken(user, refreshToken);
+        return LoginResponse.from(accessToken, refreshToken, user);
     }
 
     public void signup(SignupRequest request) {
@@ -64,4 +81,11 @@ public class AuthService {
 
         userRepository.save(user);
     }
+
+    // 비밀번호 매칭 검사
+    private void validatePasswordMatch(String rawPassword, String encodedPassword) {
+        boolean isMatch = passwordEncoder.matches(rawPassword, encodedPassword);
+        if (!isMatch) throw new GeneralException(ErrorStatus.INVALID_PASSWORD);
+    }
+
 }

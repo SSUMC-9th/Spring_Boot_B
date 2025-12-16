@@ -3,7 +3,7 @@ package com.ssu.umc9th2.spring_boot_b.domain.auth.controller;
 import com.ssu.umc9th2.spring_boot_b.common.response.ApiResponse;
 import com.ssu.umc9th2.spring_boot_b.common.status.SuccessStatus;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginRequest;
-import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginResponse;
+import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.LoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.SignupRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,17 +25,29 @@ public class AuthController {
     private final AuthService authService;
 
 
+//    @PostMapping("/login")
+//    @Operation(summary = "로그인", description = "이메일/비밀번호 기반 세션 로그인")
+//    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
+//    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "이메일 또는 비밀번호 오류", content = @Content())
+//    public ResponseEntity<ApiResponse<LoginResponse>> login(
+//            @RequestBody @Valid LoginRequest request,
+//            HttpServletRequest httpRequest
+//    ) {
+//        LoginResponse response = authService.login(request);
+//        httpRequest.getSession(true);
+//
+//        return ApiResponse.success(SuccessStatus.LOGIN_SUCCESS, response);
+//    }
+
     @PostMapping("/login")
-    @Operation(summary = "로그인", description = "이메일/비밀번호 기반 세션 로그인")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(schema = @Schema(implementation = LoginResponse.class)))
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "이메일 또는 비밀번호 오류", content = @Content())
+    @Operation(summary = "로그인")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "로그인 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = LoginResponse.class)))
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "401", description = "비밀번호가 일치하지 않는 경우", content = @Content)
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "유저가 존재하지 않는 경우", content = @Content)
     public ResponseEntity<ApiResponse<LoginResponse>> login(
-            @RequestBody @Valid LoginRequest request,
-            HttpServletRequest httpRequest
+            @Valid @RequestBody LoginRequest request
     ) {
         LoginResponse response = authService.login(request);
-        httpRequest.getSession(true);
-
         return ApiResponse.success(SuccessStatus.LOGIN_SUCCESS, response);
     }
 
