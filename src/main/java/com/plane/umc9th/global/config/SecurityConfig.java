@@ -14,6 +14,7 @@ public class SecurityConfig {
 
     private final String[] allowUris = {
             // Swagger 허용
+            "/users/sign-up",
             "/swagger-ui/**",
             "/swagger-resources/**",
             "/v3/api-docs/**",
