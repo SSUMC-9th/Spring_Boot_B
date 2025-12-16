@@ -6,7 +6,6 @@ import com.example.umc9th.infra.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 
 
 @Entity
@@ -32,5 +31,9 @@ public class MemberMission extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mission_id", nullable = false)
     private Mission mission;
+
+    public void updateStatus(MemberMissionStatus status) {
+        this.memberMissionStatus = status;
+    }
 }
 

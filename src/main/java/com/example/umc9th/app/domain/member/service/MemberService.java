@@ -15,6 +15,8 @@ import com.example.umc9th.app.domain.mission.enums.MemberMissionStatus;
 import com.example.umc9th.app.domain.mission.exception.MissionErrorCode;
 import com.example.umc9th.app.domain.mission.exception.MissionException;
 import com.example.umc9th.app.domain.mission.repository.MissionRepository;
+import com.example.umc9th.infra.apiPayload.ApiResponse;
+import com.example.umc9th.infra.apiPayload.code.GeneralSuccessCode;
 import com.example.umc9th.infra.exception.FoodErrorCode;
 import com.example.umc9th.infra.exception.FoodException;
 import com.example.umc9th.infra.repository.FoodCategoryRepository;
@@ -26,12 +28,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.COMPLETED;
 import static com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.IN_PROGRESS;
-import static com.example.umc9th.app.domain.mission.exception.MissionErrorCode.NOT_FOUND;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -54,12 +56,12 @@ public class MemberService {
         );
     }
 
-    public Page<GetMemberMissionResponse> getMemberMissions(Long memberId, MemberMissionStatus status, int page, int size) {
-        return memberMissionsRepository.getMemberMissions(memberId, status, PageRequest.of(page, size));
+    public Page<MemberMissionResponse> getMemberMissions(Long memberId, MemberMissionStatus status, PageRequest pageRequest) {
+        return memberMissionsRepository.getMemberMissions(memberId, status, pageRequest);
     }
 
-    public Page<GetAvailableMemberMissionResponse> getAvailableMemberMission(Long memberId, int page, int size) {
-        return memberMissionsRepository.getAvailableMemberMissions(memberId, PageRequest.of(page, size));
+    public Page<GetAvailableMemberMissionResponse> getAvailableMemberMission(Long memberId, PageRequest pageRequest) {
+        return memberMissionsRepository.getAvailableMemberMissions(memberId, pageRequest);
     }
 
     public GetMemberHomeResponse getMemberHome(Long memberId) {
@@ -75,7 +77,6 @@ public class MemberService {
 
     @Transactional
     public PostCreateMemberResponse.JoinDTO createMember(PostCreateMemberRequest.JoinDTO dto) {
-        List<MemberFoodCategory> memberFoodList = new ArrayList<>();
         Member newMember = Member.builder()
                 .gender(dto.gender())
                 .birth(dto.birth())
@@ -103,7 +104,6 @@ public class MemberService {
     }
 
     @Transactional
-
     public PostCreateMemberMissionResponse.DTO challenge(Long missionId, Long memberId) {
         log.info("[challenge] missionId = {}, memberId = {}", missionId, memberId);
         Mission mission = missionRepository.findById(missionId)
@@ -125,5 +125,30 @@ public class MemberService {
         MemberMission saved = memberMissionsRepository.save(memberMission);
 
         return new PostCreateMemberMissionResponse.DTO(saved.getId());
+    }
+@Transactional
+    public ApiResponse<MemberMissionResponse> updateMission(Long memberId, Long missionId) {
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new MissionException(MissionErrorCode.NOT_FOUND));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.NOT_FOUND));
+
+        MemberMission memberMission = memberMissionsRepository
+                .findByMemberAndMission(member, mission)
+                .orElseThrow(() -> new MissionException(MissionErrorCode.NOT_FOUND));
+        if (memberMission.getMemberMissionStatus() == MemberMissionStatus.COMPLETED) {
+            throw new MissionException(MissionErrorCode.ALREADY_DONE);
+        }
+        memberMission.updateStatus(COMPLETED);
+        Mission selectedMission = memberMission.getMission();
+        MemberMissionResponse response = new MemberMissionResponse(
+                selectedMission.getId(),
+                selectedMission.getReward(),
+                selectedMission.getCashRequirement(),
+                selectedMission.getStore().getName(),
+                memberMission.getMemberMissionStatus()
+        );
+
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, response);
     }
 }

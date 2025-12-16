@@ -1,4 +1,4 @@
-package com.example.umc9th.app.domain.review.exception;
+package com.example.umc9th.app.domain.review.exception.code;
 
 
 import com.example.umc9th.infra.apiPayload.code.BaseErrorCode;
@@ -13,6 +13,7 @@ public enum ReviewErrorCode implements BaseErrorCode {
 
     // For test
     REVIEW_EXCEPTION(HttpStatus.BAD_REQUEST, "REVIEW400_1", "리뷰에러 발생"),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "REVIEW404_1", "해당 리뷰를 찾을 수 없습니다."),
     ;
 
     private final HttpStatus status;

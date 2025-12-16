@@ -4,7 +4,6 @@ package com.example.umc9th.app.domain.store.dto;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class PostCreateStoreMissionRequest {
     public record CreateStoreMissionDTO(
