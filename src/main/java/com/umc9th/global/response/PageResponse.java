@@ -1,4 +1,4 @@
-package com.example.umc9th.global.apiPayload.response;
+package com.umc9th.global.apiPayload.response;
 
 
 import lombok.Builder;

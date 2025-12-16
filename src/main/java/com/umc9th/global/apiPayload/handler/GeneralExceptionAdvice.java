@@ -1,9 +1,9 @@
-package com.example.umc9th.global.apiPayload.handler;
+package com.umc9th.global.apiPayload.handler;
 
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.code.BaseErrorCode;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import com.umc9th.global.apiPayload.ApiResponse;
+import com.umc9th.global.apiPayload.code.BaseErrorCode;
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.global.apiPayload.exception.GeneralException;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package com.example.umc9th.domain.mission.converter;
+package com.umc9th.domain.mission.converter;
 
-import com.example.umc9th.domain.mission.dto.res.GetUserMissionResponse;
-import com.example.umc9th.domain.user.entity.UserMission;
+import com.umc9th.domain.mission.dto.res.GetUserMissionResponse;
+import com.umc9th.domain.user.entity.UserMission;
 
 public class UserMissionConverter {
 

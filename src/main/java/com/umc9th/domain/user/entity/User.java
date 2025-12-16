@@ -1,5 +1,6 @@
 package com.umc9th.domain.user.entity;
 
+import com.umc9th.global.enums.Role;
 import com.umc9th.domain.user.enums.Address;
 import com.umc9th.domain.user.enums.Gender;
 import com.umc9th.domain.user.enums.SocialType;
@@ -45,6 +46,14 @@ public class User extends BaseEntity {
     @Column(name ="userpoint", nullable = false)
     private Long userPoint;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
 }

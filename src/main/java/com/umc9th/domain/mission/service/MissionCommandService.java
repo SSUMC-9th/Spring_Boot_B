@@ -1,16 +1,16 @@
-package com.example.umc9th.domain.mission.service;
+package com.umc9th.domain.mission.service;
 
-import com.example.umc9th.domain.mission.converter.MissionConverter;
-import com.example.umc9th.domain.mission.dto.req.MissionRequestDto;
-import com.example.umc9th.domain.mission.dto.res.MissionResponseDto;
-import com.example.umc9th.domain.mission.entity.Mission;
-import com.example.umc9th.domain.mission.repository.MissionRepository;
-import com.example.umc9th.domain.mission.repository.UserMissionRepository;
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.domain.user.entity.UserMission;
-import com.example.umc9th.domain.user.repository.MyPageRepository; // 혹은 UserRepository
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import com.umc9th.domain.mission.converter.MissionConverter;
+import com.umc9th.domain.mission.dto.req.MissionRequestDto;
+import com.umc9th.domain.mission.dto.res.MissionResponseDto;
+import com.umc9th.domain.mission.entity.Mission;
+import com.umc9th.domain.mission.repository.MissionRepository;
+import com.umc9th.domain.mission.repository.UserMissionRepository;
+import com.umc9th.domain.user.entity.User;
+import com.umc9th.domain.user.entity.UserMission;
+import com.umc9th.domain.user.repository.MyPageRepository; // 혹은 UserRepository
+import com.umc9th.global.apiPayload.code.GeneralErrorCode;
+import com.umc9th.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

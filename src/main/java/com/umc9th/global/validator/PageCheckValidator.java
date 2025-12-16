@@ -1,7 +1,7 @@
-package com.example.umc9th.global.validator;
+package com.umc9th.global.validator;
 
 
-import com.example.umc9th.global.annotation.PageCheck;
+import com.umc9th.global.annotation.PageCheck;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.stereotype.Component;

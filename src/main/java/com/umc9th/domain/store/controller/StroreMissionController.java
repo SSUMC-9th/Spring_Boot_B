@@ -1,12 +1,12 @@
-package com.example.umc9th.domain.store.controller;
+package com.umc9th.domain.store.controller;
 
-import com.example.umc9th.domain.mission.dto.res.StoreMissionDto;
-import com.example.umc9th.domain.mission.service.MissionQueryService;
-import com.example.umc9th.global.annotation.ExistStore;
-import com.example.umc9th.global.annotation.PageCheck;
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
-import com.example.umc9th.global.apiPayload.response.PageResponse;
+import com.umc9th.domain.mission.dto.res.StoreMissionDto;
+import com.umc9th.domain.mission.service.MissionQueryService;
+import com.umc9th.global.annotation.ExistStore;
+import com.umc9th.global.annotation.PageCheck;
+import com.umc9th.global.apiPayload.ApiResponse;
+import com.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.umc9th.global.apiPayload.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;

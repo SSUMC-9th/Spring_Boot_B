@@ -30,7 +30,9 @@ public enum GeneralErrorCode implements BaseErrorCode{
     MISSION_ALREADY_CHALLENGING(HttpStatus.BAD_REQUEST,
             "MISSION400_1",
             "이미 도전 중인 미션입니다."),
-
+    NOT_MATCH(HttpStatus.BAD_REQUEST,
+            "COMMON405",
+            "잘못된 비밀번호입니다.")
 
     ;
 
