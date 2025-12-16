@@ -7,6 +7,7 @@ import com.ssu.umc9th2.spring_boot_b.domain.auth.CustomUserDetails;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.LoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.SignupRequest;
+import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.ReissueAccessTokenResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.user.converter.UserConverter;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import com.ssu.umc9th2.spring_boot_b.domain.user.enums.UserRole;
@@ -86,6 +87,20 @@ public class AuthService {
     private void validatePasswordMatch(String rawPassword, String encodedPassword) {
         boolean isMatch = passwordEncoder.matches(rawPassword, encodedPassword);
         if (!isMatch) throw new GeneralException(ErrorStatus.INVALID_PASSWORD);
+    }
+
+    // 토큰 재발급
+    @Transactional
+    public ReissueAccessTokenResponse reissueAccessToken(String refreshToken) {
+        var claims = jwtService.validateRefreshToken(refreshToken);
+        User user = userService.getUserByRefreshToken(claims, refreshToken);
+
+        String newAccessToken = jwtService.generateAccessToken(user);
+        String newRefreshToken = jwtService.generateRefreshToken(user);
+
+        userService.updateRefreshToken(user, newRefreshToken);
+
+        return new ReissueAccessTokenResponse(newAccessToken, newRefreshToken);
     }
 
 }

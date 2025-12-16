@@ -11,6 +11,7 @@ import com.ssu.umc9th2.spring_boot_b.domain.user.entity.UserMission;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserMissionCustomRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserMissionRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -101,6 +102,19 @@ public class UserService {
 
     public void updateRefreshToken(User user, String refreshToken) {
         user.updateRefreshToken(refreshToken);
+    }
+
+    // RefreshToken으로 User 검색
+    public User getUserByRefreshToken(Claims claims, String refreshToken) {
+        String id = claims.getSubject();
+
+        User user = userRepository.findById(Long.parseLong(id))
+                .orElseThrow(() -> new GeneralException(ErrorStatus.REFRESH_TOKEN_NOT_FOUND));
+
+        if (!refreshToken.equals(user.getRefreshToken())) {
+            throw new GeneralException(ErrorStatus.REFRESH_TOKEN_MISMATCH);
+        }
+        return user;
     }
 
 }
