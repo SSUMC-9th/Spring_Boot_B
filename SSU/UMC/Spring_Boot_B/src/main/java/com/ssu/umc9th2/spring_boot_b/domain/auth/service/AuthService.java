@@ -3,21 +3,17 @@ package com.ssu.umc9th2.spring_boot_b.domain.auth.service;
 import com.ssu.umc9th2.spring_boot_b.common.exception.GeneralException;
 import com.ssu.umc9th2.spring_boot_b.common.jwt.JwtService;
 import com.ssu.umc9th2.spring_boot_b.common.status.ErrorStatus;
-import com.ssu.umc9th2.spring_boot_b.domain.auth.CustomUserDetails;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.LoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.SignupRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.ReissueAccessTokenResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.user.converter.UserConverter;
 import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
-import com.ssu.umc9th2.spring_boot_b.domain.user.enums.UserRole;
+import com.ssu.umc9th2.spring_boot_b.domain.user.enums.Role;
 import com.ssu.umc9th2.spring_boot_b.domain.user.repository.UserRepository;
 import com.ssu.umc9th2.spring_boot_b.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,7 +72,7 @@ public class AuthService {
                 .password(passwordEncoder.encode(request.password()))
                 .gender(request.gender())
                 .nickname(request.nickname())
-                .role(UserRole.ROLE_USER)
+                .role(Role.ROLE_USER)
                 .isDeleted(false)
         .build();
 

@@ -3,10 +3,13 @@ package com.ssu.umc9th2.spring_boot_b.domain.auth.controller;
 import com.ssu.umc9th2.spring_boot_b.common.response.ApiResponse;
 import com.ssu.umc9th2.spring_boot_b.common.status.SuccessStatus;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.LoginRequest;
+import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.KakaoLoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.LoginResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.request.SignupRequest;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.dto.response.ReissueAccessTokenResponse;
 import com.ssu.umc9th2.spring_boot_b.domain.auth.service.AuthService;
+import com.ssu.umc9th2.spring_boot_b.domain.auth.service.KakaoService;
+import com.ssu.umc9th2.spring_boot_b.domain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final KakaoService kakaoService;
 
 
 //    @PostMapping("/login")
@@ -84,6 +90,24 @@ public class AuthController {
 
         ReissueAccessTokenResponse response = authService.reissueAccessToken(tokenWithoutPrefix);
         return ApiResponse.success(SuccessStatus.CREATE_TOKEN_SUCCESS, response);
+    }
+
+    @GetMapping("/kakao/authorize-uri")
+    @Operation(summary = "카카오 로그인 URL 조회")
+    public ResponseEntity<ApiResponse<Map<String, String>>> getKakaoAuthorizeUri() {
+        String authorizeUri = kakaoService.getKakaoAuthorizeUri();
+        Map<String, String> data = Map.of("authorizeUri", authorizeUri);
+
+        return ApiResponse.success(SuccessStatus.AUTH_URL_SUCCESS, data);
+    }
+
+    @GetMapping("/kakao/callback")
+    @Operation(summary = "카카오 로그인 콜백", description = "카카오에서 받은 인가 코드로 로그인을 처리하고 JWT 토큰을 발급합니다.")
+    public ResponseEntity<ApiResponse<KakaoLoginResponse>> kakaoLogin(
+            @RequestParam  String code
+    ) {
+        KakaoLoginResponse response = kakaoService.loginWithKakao(code);
+        return ApiResponse.success(SuccessStatus.LOGIN_SUCCESS, response);
     }
 
 }

@@ -36,6 +36,8 @@ public class SecurityConfig {
             "/auth/signup",
             "/auth/login",
             "/auth/logout",
+            "/auth/kakao/authorize-uri",
+            "/auth/kakao/callback/**",
     };
 
     @Bean
