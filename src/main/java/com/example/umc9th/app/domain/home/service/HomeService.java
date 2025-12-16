@@ -7,7 +7,9 @@ import com.example.umc9th.app.domain.member.dto.GetAvailableMemberMissionRespons
 import com.example.umc9th.app.domain.member.dto.GetMemberHomeResponse;
 import com.example.umc9th.app.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,9 +22,9 @@ public class HomeService {
     private final MemberService memberService;
 
     //getHomeResponse를 반환하는 getHome함수를 생성
-    public GetHomeResponse getHome(Long memberId, int page, int size) {
+    public GetHomeResponse getHome(@RequestParam Long memberId, PageRequest pageRequest) {
         //미션 목록을 반환하기 위해 List로 받아옴
-        List<GetAvailableMemberMissionResponse> missions = memberService.getAvailableMemberMission(memberId, page, size).getContent();
+        List<GetAvailableMemberMissionResponse> missions = memberService.getAvailableMemberMission(memberId, pageRequest).getContent();
 
         //홈화면에 필요한 회원 정보를 받아옴
         GetMemberHomeResponse member = memberService.getMemberHome(memberId);
@@ -30,8 +32,8 @@ public class HomeService {
         return new GetHomeResponse(member, missions);
     }
 
-    public void checkFlag(Long flag){
-        if (flag == 1){
+    public void checkFlag(Long flag) {
+        if (flag == 1) {
             throw new HomeException(HomeErrorCode.HOME_EXCEPTION);
         }
     }

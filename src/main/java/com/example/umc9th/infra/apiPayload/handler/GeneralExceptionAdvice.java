@@ -4,6 +4,8 @@ import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.apiPayload.code.BaseErrorCode;
 import com.example.umc9th.infra.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.infra.apiPayload.exception.GeneralException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -49,5 +51,17 @@ public class GeneralExceptionAdvice {
 
         // 에러 코드, 메시지와 함께 errors를 반환
         return ResponseEntity.status(code.getStatus()).body(errorResponse);
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<?>> handleConstraintViolation(ConstraintViolationException ex) {
+
+        String message = ex.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .findFirst()
+                .orElse("페이지가 유효하지 않습니다.");
+
+        return ResponseEntity
+                .badRequest()
+                .body(ApiResponse.onFailure(GeneralErrorCode.BAD_REQUEST, message));
     }
 }

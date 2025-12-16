@@ -1,6 +1,5 @@
 package com.example.umc9th.app.domain.member.dto;
 
-import com.example.umc9th.app.domain.member.entity.MemberFoodCategory;
 import com.example.umc9th.app.domain.member.enums.Gender;
 import com.example.umc9th.infra.annotation.ExistFoods;
 import com.example.umc9th.infra.entity.Address;

@@ -7,13 +7,15 @@ import com.example.umc9th.app.domain.member.service.MemberService;
 import com.example.umc9th.app.domain.mission.enums.MemberMissionStatus;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
 import com.example.umc9th.infra.apiPayload.code.GeneralSuccessCode;
+import com.example.umc9th.infra.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 @Tag(name = "회원")
-public class MemberController {
+public class MemberController implements MemberControllerDocs {
     private final MemberService memberService;
     private final MemberQueryService memberQueryService;
 
@@ -37,14 +39,15 @@ public class MemberController {
     }
 
     @GetMapping("/{memberId}/missions")
-    public ApiResponse<List<GetMemberMissionResponse>> getMemberMissions(
+    public ApiResponse<List<MemberMissionResponse>> getMemberMissions(
             @PathVariable Long memberId,
             @RequestParam MemberMissionStatus status,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            Pageable pageable) {
+            @ValidPage
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
         //getContent()로 실제 list 데이터만 반환(Page<GetMemberMissionResponse> 객체에서 추출)
-        List<GetMemberMissionResponse> dto = memberService.getMemberMissions(memberId, status, page, size).getContent();
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("updatedAt").descending());
+        List<MemberMissionResponse> dto = memberService.getMemberMissions(memberId, status,pageRequest).getContent();
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, dto);
     }
 
@@ -70,4 +73,8 @@ public class MemberController {
     ) {
         return ApiResponse.onSuccess(MemberSuccessCode.FOUND, memberQueryService.login(dto));
     }
+@PatchMapping("/missions")
+    public ApiResponse<MemberMissionResponse> updateMission(@RequestParam Long memberId, @RequestParam Long missionId){
+        return memberService.updateMission(memberId, missionId);
+}
 }
