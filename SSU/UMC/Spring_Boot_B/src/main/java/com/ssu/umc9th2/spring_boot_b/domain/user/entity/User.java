@@ -1,6 +1,8 @@
 package com.ssu.umc9th2.spring_boot_b.domain.user.entity;
 
 import com.ssu.umc9th2.spring_boot_b.common.base.BaseEntity;
+import com.ssu.umc9th2.spring_boot_b.domain.user.enums.LoginType;
+import com.ssu.umc9th2.spring_boot_b.domain.user.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.*;
@@ -41,5 +43,23 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Boolean isDeleted;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private LoginType loginType;
+
+    private String refreshToken;
+
+    private String providerId;
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }
 

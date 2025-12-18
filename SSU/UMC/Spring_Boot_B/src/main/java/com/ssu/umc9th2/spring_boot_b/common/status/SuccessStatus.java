@@ -16,7 +16,14 @@ public enum SuccessStatus implements BaseStatus {
     CREATE_RESTAURANT_SUCCESS("RESTAURANT_2O1", HttpStatus.CREATED, "성공입니다."),
     CREATE_REVIEW_SUCCESS("REVIEW_2O1", HttpStatus.CREATED,"성공입니다."),
     CREATE_MISSION_SUCCESS("MISSION_201",HttpStatus.CREATED,"성공입니다."),
-    CREATE_USER_MISSION_SUCCESS("MISSION_201",HttpStatus.CREATED,"성공입니다.");
+    CREATE_USER_MISSION_SUCCESS("MISSION_201",HttpStatus.CREATED,"성공입니다."),
+
+    LOGIN_SUCCESS("AUTH_200",HttpStatus.OK,"로그인 성공" ),
+    SIGNUP_SUCCESS("AUTH_201",HttpStatus.CREATED, "회원가입 성공"),
+    LOGOUT_SUCCESS("AUTH_200",HttpStatus.OK, "로그아웃 성공"),
+    GET_ME_SUCCESS("AUTH_200",HttpStatus.OK, "내 정보 조회 성공"),
+    CREATE_TOKEN_SUCCESS("AUTH_200", HttpStatus.OK, "토큰 재발급 성공"),
+    AUTH_URL_SUCCESS("AUTH_200", HttpStatus.OK, "로그인 URL 조회 성공");
 
     private final String code;
     private final HttpStatus httpStatus;
