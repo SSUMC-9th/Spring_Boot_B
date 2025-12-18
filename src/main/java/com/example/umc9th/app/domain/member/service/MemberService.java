@@ -26,13 +26,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.COMPLETED;
+import static com.example.umc9th.app.domain.member.enums.Role.ROLE_USER;
 import static com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.IN_PROGRESS;
+import static com.example.umc9th.app.domain.mission.enums.MemberMissionStatus.COMPLETED;
 
 @Slf4j
 @Service
@@ -43,6 +44,7 @@ public class MemberService {
     private final MemberMissionRepository memberMissionsRepository;
     private final FoodCategoryRepository foodCategoryRepository;
     private final MemberFoodCategoryRepository memberFoodCategoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public GetMemberMyPageResponse memberMyPage(Long memberId) {
         Member member = findMemberById(memberId);
@@ -77,11 +79,15 @@ public class MemberService {
 
     @Transactional
     public PostCreateMemberResponse.JoinDTO createMember(PostCreateMemberRequest.JoinDTO dto) {
+        String encodedPassword = passwordEncoder.encode(dto.password());
         Member newMember = Member.builder()
                 .gender(dto.gender())
                 .birth(dto.birth())
                 .name(dto.name())
                 .email(dto.email())
+                .password(encodedPassword)
+                .role(ROLE_USER)
+                .address(dto.address())
                 .build();
         Member saved = memberRepository.save(newMember);
         if (dto.foodCategories() != null && !dto.foodCategories().isEmpty()) {
@@ -92,7 +98,7 @@ public class MemberService {
                                     .orElseThrow(() -> new FoodException(FoodErrorCode.NOT_FOUND)))
                             .build()
                     )
-                    .collect(Collectors.toList());
+                    .toList();
 
             memberFoodCategoryRepository.saveAll(memberFoodCategories);
         }

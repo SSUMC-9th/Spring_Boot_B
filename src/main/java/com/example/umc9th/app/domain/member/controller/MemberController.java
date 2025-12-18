@@ -1,6 +1,8 @@
 package com.example.umc9th.app.domain.member.controller;
 
 import com.example.umc9th.app.domain.member.dto.*;
+import com.example.umc9th.app.domain.member.exception.code.MemberSuccessCode;
+import com.example.umc9th.app.domain.member.service.MemberQueryService;
 import com.example.umc9th.app.domain.member.service.MemberService;
 import com.example.umc9th.app.domain.mission.enums.MemberMissionStatus;
 import com.example.umc9th.infra.apiPayload.ApiResponse;
@@ -24,11 +26,12 @@ import java.util.List;
 @Tag(name = "회원")
 public class MemberController implements MemberControllerDocs {
     private final MemberService memberService;
+    private final MemberQueryService memberQueryService;
 
     @GetMapping("/{memberId}")
     @Operation(summary = "마이페이지 정보", description = "마이페이지 정보를 가져옵니다.")
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "마이페이지 조회",content = @Content(schema = @Schema(implementation = GetMemberMyPageResponse.class)))
-    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "에러",content = @Content())
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "마이페이지 조회", content = @Content(schema = @Schema(implementation = GetMemberMyPageResponse.class)))
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "에러", content = @Content())
     public ApiResponse<GetMemberMyPageResponse> memberMyPage(@PathVariable Long memberId) {
         GetMemberMyPageResponse dto = memberService.memberMyPage(memberId);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, dto);
@@ -55,12 +58,20 @@ public class MemberController implements MemberControllerDocs {
         PostCreateMemberResponse.JoinDTO newMember = memberService.createMember(dto);
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, newMember);
     }
+
     @PostMapping("/missions/challenge")
     public ApiResponse<PostCreateMemberMissionResponse.DTO> challengeMission(
             @RequestBody @Valid PostCreateMemberMissionRequest.DTO dto
     ) {
-        PostCreateMemberMissionResponse.DTO response = memberService.challenge(dto.missionId(),dto.memberId());
+        PostCreateMemberMissionResponse.DTO response = memberService.challenge(dto.missionId(), dto.memberId());
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, response);
+    }
+
+    @PostMapping("login")
+    public ApiResponse<PostMemberLoginResponse.LoginDTO> login(
+            @RequestBody @Valid PostMemberLoginRequest.LoginDTO dto
+    ) {
+        return ApiResponse.onSuccess(MemberSuccessCode.FOUND, memberQueryService.login(dto));
     }
 @PatchMapping("/missions")
     public ApiResponse<MemberMissionResponse> updateMission(@RequestParam Long memberId, @RequestParam Long missionId){

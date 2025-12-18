@@ -3,6 +3,7 @@ package com.example.umc9th.app.domain.member.entity;
 
 import com.example.umc9th.app.domain.member.enums.AuthProvider;
 import com.example.umc9th.app.domain.member.enums.Gender;
+import com.example.umc9th.app.domain.member.enums.Role;
 import com.example.umc9th.app.domain.review.entity.Review;
 import com.example.umc9th.infra.entity.Address;
 import com.example.umc9th.infra.entity.BaseTimeEntity;
@@ -41,8 +42,14 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private LocalDate birth;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "phone_num", length = 20, unique = true)
     private String phoneNum;
